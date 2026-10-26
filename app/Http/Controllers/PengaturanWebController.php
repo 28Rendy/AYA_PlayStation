@@ -17,11 +17,17 @@ class PengaturanWebController extends Controller
 
     public function index()
     {
-        $judul = 'Pengaturan Website & Media';
+        $activeTab = request()->get('tab', 'umum');
+        if ($activeTab == 'fasilitas') {
+            $judul = 'Kelola Fasilitas Frontend';
+        } elseif ($activeTab == 'galeri') {
+            $judul = 'Kelola Galeri Foto Frontend';
+        } else {
+            $judul = 'Pengaturan Informasi & Kontak';
+        }
         $pengaturan = PengaturanWeb::getSettings();
         $fasilitas = KontenFasilitas::orderBy('urutan')->get();
         $galeri = GaleriFoto::orderBy('urutan')->get();
-        $activeTab = request()->get('tab', 'umum');
 
         return view('pengaturan_web', compact('pengaturan', 'judul', 'fasilitas', 'galeri', 'activeTab'));
     }

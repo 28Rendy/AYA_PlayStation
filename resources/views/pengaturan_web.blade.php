@@ -4,13 +4,39 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <div>
         <h1 class="h3 mb-1 text-gray-800 font-weight-bold">
-            <i class="fas fa-sliders-h text-primary mr-2"></i>Pengaturan Website & Media Frontend
+            @if($activeTab == 'fasilitas')
+                <i class="fas fa-couch text-primary mr-2"></i>Kelola Fasilitas Frontend
+            @elseif($activeTab == 'galeri')
+                <i class="fas fa-images text-info mr-2"></i>Kelola Galeri Foto Frontend
+            @else
+                <i class="fas fa-sliders-h text-primary mr-2"></i>Pengaturan Website & Media Frontend
+            @endif
         </h1>
-        <p class="text-muted small mb-0">Kelola semua teks, kontak, hero banner, fasilitas, dan foto galeri yang tampil di halaman depan (frontend).</p>
+        <p class="text-muted small mb-0">
+            @if($activeTab == 'fasilitas')
+                Kelola daftar fasilitas, ruangan, dan keunggulan rental yang tampil di menu Fasilitas frontend.
+            @elseif($activeTab == 'galeri')
+                Kelola foto dokumentasi dan suasana rental yang tampil di menu Galeri frontend.
+            @else
+                Kelola semua teks, kontak, hero banner, logo, dan identitas usaha yang tampil di halaman depan frontend.
+            @endif
+        </p>
     </div>
-    <a href="{{ route('welcome') }}" target="_blank" class="btn btn-primary btn-sm shadow-sm">
-        <i class="fas fa-external-link-alt fa-sm text-white-50 mr-1"></i> Buka Tampilan Frontend
-    </a>
+    <div>
+        @if($activeTab == 'fasilitas')
+            <a href="{{ route('frontend.facilities') }}" target="_blank" class="btn btn-primary btn-sm shadow-sm">
+                <i class="fas fa-external-link-alt fa-sm text-white-50 mr-1"></i> Buka Halaman Fasilitas Frontend
+            </a>
+        @elseif($activeTab == 'galeri')
+            <a href="{{ route('frontend.gallery') }}" target="_blank" class="btn btn-info btn-sm shadow-sm">
+                <i class="fas fa-external-link-alt fa-sm text-white-50 mr-1"></i> Buka Halaman Galeri Frontend
+            </a>
+        @else
+            <a href="{{ route('welcome') }}" target="_blank" class="btn btn-primary btn-sm shadow-sm">
+                <i class="fas fa-external-link-alt fa-sm text-white-50 mr-1"></i> Buka Tampilan Frontend
+            </a>
+        @endif
+    </div>
 </div>
 
 @if (session('pesan'))
@@ -36,31 +62,9 @@
     </div>
 @endif
 
-<!-- Nav Tabs -->
-<ul class="nav nav-pills nav-fill mb-4 bg-white p-2 rounded shadow-sm border" id="settingTabs" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link font-weight-bold py-2 {{ $activeTab == 'umum' ? 'active' : '' }}" id="tab-umum-link" data-toggle="pill" href="#tab-umum" role="tab">
-            <i class="fas fa-cogs mr-1"></i> 1. Informasi, Hero & Kontak
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link font-weight-bold py-2 {{ $activeTab == 'fasilitas' ? 'active' : '' }}" id="tab-fasilitas-link" data-toggle="pill" href="#tab-fasilitas" role="tab">
-            <i class="fas fa-couch mr-1"></i> 2. Kelola Halaman Fasilitas 
-            <span class="badge badge-light border text-primary ml-1">{{ $fasilitas->count() }}</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link font-weight-bold py-2 {{ $activeTab == 'galeri' ? 'active' : '' }}" id="tab-galeri-link" data-toggle="pill" href="#tab-galeri" role="tab">
-            <i class="fas fa-images mr-1"></i> 3. Kelola Halaman Galeri Foto
-            <span class="badge badge-light border text-info ml-1">{{ $galeri->count() }}</span>
-        </a>
-    </li>
-</ul>
-
-<div class="tab-content" id="settingTabsContent">
-    <!-- ================= TAB 1: UMUM & KONTAK ================= -->
-    <div class="tab-pane fade {{ $activeTab == 'umum' ? 'show active' : '' }}" id="tab-umum" role="tabpanel">
-        <form action="{{ route('pengaturan-web.update') }}" method="POST" enctype="multipart/form-data">
+@if($activeTab == 'umum' || empty($activeTab))
+    <!-- ================= SECTION 1: UMUM & KONTAK ================= -->
+    <form action="{{ route('pengaturan-web.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <!-- Kolom Kiri: Branding & Hero -->
@@ -217,11 +221,9 @@
                 </div>
             </div>
         </form>
-    </div>
-
-    <!-- ================= TAB 2: KELOLA FASILITAS ================= -->
-    <div class="tab-pane fade {{ $activeTab == 'fasilitas' ? 'show active' : '' }}" id="tab-fasilitas" role="tabpanel">
-        <div class="card shadow-sm mb-4 border-left-primary">
+@elseif($activeTab == 'fasilitas')
+    <!-- ================= SECTION 2: KELOLA FASILITAS ================= -->
+    <div class="card shadow-sm mb-4 border-left-primary">
             <div class="card-header py-3 bg-white d-flex align-items-center justify-content-between">
                 <div>
                     <h6 class="m-0 font-weight-bold text-primary">
@@ -372,11 +374,9 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- ================= TAB 3: KELOLA GALERI FOTO ================= -->
-    <div class="tab-pane fade {{ $activeTab == 'galeri' ? 'show active' : '' }}" id="tab-galeri" role="tabpanel">
-        <div class="card shadow-sm mb-4 border-left-info">
+@elseif($activeTab == 'galeri')
+    <!-- ================= SECTION 3: KELOLA GALERI FOTO ================= -->
+    <div class="card shadow-sm mb-4 border-left-info">
             <div class="card-header py-3 bg-white d-flex align-items-center justify-content-between">
                 <div>
                     <h6 class="m-0 font-weight-bold text-info">
@@ -509,8 +509,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+@endif
 
 <!-- ================= MODAL TAMBAH FASILITAS ================= -->
 <div class="modal fade" id="modalTambahFasilitas" tabindex="-1" role="dialog" aria-hidden="true">

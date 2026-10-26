@@ -11,128 +11,326 @@
     <link href="{{ asset('Backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('Backend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #0a0a1a;
-            overflow: hidden;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 50%, #dbeafe 100%);
+            padding: 20px 15px;
+            color: #0f172a;
         }
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(ellipse at 20% 50%, rgba(13,110,253,0.15) 0%, transparent 50%),
-                        radial-gradient(ellipse at 80% 20%, rgba(233,69,96,0.12) 0%, transparent 50%),
-                        radial-gradient(ellipse at 60% 80%, rgba(9,132,227,0.1) 0%, transparent 50%);
-            animation: bgPulse 8s ease-in-out infinite alternate;
-            z-index: 0;
-        }
-        @keyframes bgPulse {
-            0% { transform: translate(0,0) rotate(0deg); }
-            100% { transform: translate(2%,2%) rotate(2deg); }
-        }
+
         .login-wrapper {
-            position: relative; z-index: 1;
-            width: 100%; max-width: 460px; padding: 20px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 420px;
+            margin: auto;
         }
+
         .login-card {
-            background: rgba(255,255,255,0.04);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 24px;
-            padding: 40px 36px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
-            animation: slideUp 0.5s ease;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 30px 28px;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 20px 35px -10px rgba(30, 58, 138, 0.12);
+            animation: fadeIn 0.4s ease;
         }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .brand-header { text-align: center; margin-bottom: 28px; }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .brand-logo {
-            width: 80px; height: 80px; border-radius: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
             object-fit: cover;
-            box-shadow: 0 8px 24px rgba(13,110,253,0.3);
-            margin-bottom: 14px;
-            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 14px rgba(30, 58, 138, 0.15);
+            margin-bottom: 8px;
+            border: 2px solid #ffffff;
         }
-        .brand-title { font-size: 1.4rem; font-weight: 700; color: white; margin-bottom: 4px; }
-        .brand-subtitle { font-size: 0.82rem; color: rgba(255,255,255,0.5); }
+
+        .brand-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 2px;
+            letter-spacing: -0.3px;
+        }
+
+        .brand-subtitle {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
         .role-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 5px 14px; border-radius: 20px;
-            font-size: 0.78rem; font-weight: 600; margin-top: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            margin-top: 6px;
         }
-        .role-badge.admin { background: rgba(233,69,96,0.15); border: 1px solid rgba(233,69,96,0.3); color: #e94560; }
-        .role-badge.pelanggan { background: rgba(13,110,253,0.15); border: 1px solid rgba(13,110,253,0.3); color: #0d6efd; }
-        .form-label { color: rgba(255,255,255,0.7); font-size: 0.82rem; font-weight: 500; margin-bottom: 6px; }
+
+        .role-badge.admin {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+        }
+
+        .role-badge.pelanggan {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1d4ed8;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-label {
+            color: #334155;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+        }
+
         .form-control {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px; color: white;
-            padding: 12px 16px; font-size: 0.88rem;
+            width: 100%;
+            background: #f8fafc;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            color: #0f172a;
+            padding: 10px 14px;
+            font-size: 0.875rem;
             font-family: 'Poppins', sans-serif;
-            transition: all 0.3s;
+            transition: all 0.25s ease;
         }
+
         .form-control:focus {
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(13,110,253,0.5);
-            box-shadow: 0 0 0 3px rgba(13,110,253,0.1);
-            color: white; outline: none;
+            background: #ffffff;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            color: #0f172a;
+            outline: none;
         }
-        .form-control::placeholder { color: rgba(255,255,255,0.25); }
-        .form-control.is-invalid { border-color: #e94560; }
-        .lupa-sandi { font-size: 0.78rem; color: #0d6efd; text-decoration: none; font-weight: 500; }
-        .lupa-sandi:hover { color: #4da3ff; }
-        .btn-masuk {
-            width: 100%; padding: 13px; border-radius: 12px;
-            border: none; font-weight: 700; font-size: 0.92rem;
-            cursor: pointer; transition: all 0.3s; margin-top: 8px;
-            letter-spacing: 0.5px; font-family: 'Poppins', sans-serif;
+
+        .form-control::placeholder {
+            color: #94a3b8;
         }
-        .admin-btn {
-            background: linear-gradient(135deg, #e94560, #c0392b);
-            color: white; box-shadow: 0 6px 20px rgba(233,69,96,0.3);
+
+        .form-control.is-invalid {
+            border-color: #ef4444;
+            background: #fef2f2;
         }
-        .admin-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(233,69,96,0.4); }
-        .pelanggan-btn {
-            background: linear-gradient(135deg, #0d6efd, #0652DD);
-            color: white; box-shadow: 0 6px 20px rgba(13,110,253,0.3);
+
+        .invalid-feedback {
+            color: #dc2626;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            display: block;
         }
-        .pelanggan-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(13,110,253,0.4); }
-        .divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
-        .divider-line { flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
-        .divider-text { color: rgba(255,255,255,0.3); font-size: 0.78rem; }
-        .bottom-links { text-align: center; font-size: 0.8rem; }
-        .bottom-links a { color: #0d6efd; text-decoration: none; font-weight: 600; }
-        .bottom-links a:hover { color: #4da3ff; }
-        .bottom-links span { color: rgba(255,255,255,0.4); }
-        .back-link {
-            display: block; text-align: center; margin-top: 12px;
-            color: rgba(255,255,255,0.3); font-size: 0.78rem;
-            text-decoration: none; transition: color 0.3s;
+
+        .lupa-sandi {
+            font-size: 0.75rem;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
         }
-        .back-link:hover { color: rgba(255,255,255,0.6); }
-        .invalid-feedback { color: #e94560; font-size: 0.78rem; }
-        .alert { border-radius: 10px; font-size: 0.85rem; padding: 10px 14px; margin-bottom: 16px; }
-        .alert-success { background: rgba(40,167,69,0.15); border: 1px solid rgba(40,167,69,0.3); color: #55d98a; }
-        .alert-info { background: rgba(23,162,184,0.15); border: 1px solid rgba(23,162,184,0.3); color: #4dd8e8; }
+
+        .lupa-sandi:hover {
+            color: #1e3a8a;
+            text-decoration: underline;
+        }
+
         .custom-checkbox-label {
-            display: flex; align-items: center; gap: 8px;
-            color: rgba(255,255,255,0.5); font-size: 0.8rem; cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #64748b;
+            font-size: 0.78rem;
+            cursor: pointer;
+            user-select: none;
         }
-        .custom-checkbox-label input[type="checkbox"] { width: 16px; height: 16px; accent-color: #0d6efd; }
-        .mb-3 { margin-bottom: 1rem; }
-        .mb-4 { margin-bottom: 1.5rem; }
-        .d-flex { display: flex; }
-        .justify-content-between { justify-content: space-between; }
-        .align-items-center { align-items: center; }
-        .mb-0 { margin-bottom: 0; }
+
+        .custom-checkbox-label input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+            accent-color: #1e3a8a;
+            cursor: pointer;
+        }
+
+        .btn-masuk {
+            width: 100%;
+            padding: 11px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-top: 6px;
+            letter-spacing: 0.3px;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .admin-btn {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
+        }
+
+        .admin-btn:hover {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.3);
+        }
+
+        .pelanggan-btn {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(29, 78, 216, 0.25);
+        }
+
+        .pelanggan-btn:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(29, 78, 216, 0.3);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 16px 0 14px;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .divider-text {
+            color: #94a3b8;
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .bottom-links {
+            text-align: center;
+            font-size: 0.78rem;
+        }
+
+        .bottom-links a {
+            color: #1e3a8a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .bottom-links a:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        .bottom-links span {
+            color: #64748b;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 14px;
+            color: #64748b;
+            font-size: 0.76rem;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            color: #0f172a;
+        }
+
+        .alert {
+            border-radius: 8px;
+            font-size: 0.8rem;
+            padding: 8px 12px;
+            margin-bottom: 14px;
+        }
+
+        .alert-success {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+        }
+
+        .alert-info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+        }
+
+        .d-flex {
+            display: flex;
+        }
+
+        .justify-content-between {
+            justify-content: space-between;
+        }
+
+        .align-items-center {
+            align-items: center;
+        }
+
+        @media (max-height: 640px) {
+            body {
+                padding: 10px 15px;
+            }
+            .login-card {
+                padding: 20px 22px;
+            }
+            .brand-header {
+                margin-bottom: 12px;
+            }
+            .brand-logo {
+                width: 48px;
+                height: 48px;
+                margin-bottom: 4px;
+            }
+            .form-group {
+                margin-bottom: 10px;
+            }
+        }
     </style>
 </head>
 
@@ -158,7 +356,7 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
-                <div class="mb-3">
+                <div class="form-group">
                     <label class="form-label">Alamat Email</label>
                     <input type="email" name="email" id="email"
                         class="form-control @error('email') is-invalid @enderror"
@@ -169,22 +367,22 @@
                     @enderror
                 </div>
 
-                <div class="mb-3">
-                    <div class="d-flex justify-content-between align-items-center mb-0">
-                        <label class="form-label mb-0">Kata Sandi</label>
+                <div class="form-group">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <label class="form-label" style="margin-bottom: 0;">Kata Sandi</label>
                         @if (Route::has('password.request'))
                             <a class="lupa-sandi" href="{{ route('password.request') }}">Lupa Sandi?</a>
                         @endif
                     </div>
                     <input type="password" name="password" id="password"
                         class="form-control @error('password') is-invalid @enderror"
-                        placeholder="Masukkan kata sandi" required style="margin-top:6px;">
+                        placeholder="Masukkan kata sandi" required style="margin-top: 4px;">
                     @error('password')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>
 
-                <div class="mb-4">
+                <div class="form-group" style="margin-bottom: 16px;">
                     <label class="custom-checkbox-label">
                         <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                         Ingat Saya di Perangkat Ini
@@ -192,7 +390,7 @@
                 </div>
 
                 <button type="submit" class="btn-masuk" id="submitBtn">
-                    <i class="fas fa-sign-in-alt"></i> Masuk
+                    <i class="fas fa-sign-in-alt"></i> <span>Masuk</span>
                 </button>
 
             </form>
@@ -208,7 +406,7 @@
                 <a href="{{ route('register') }}">Daftar sebagai Pelanggan</a>
             </div>
 
-            <a href="{{ route('welcome') }}" class="back-link">&#8592; Kembali ke Beranda</a>
+            <a href="{{ route('welcome') }}" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
         </div>
     </div>
 
@@ -242,4 +440,3 @@
 </body>
 
 </html>
-

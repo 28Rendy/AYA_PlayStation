@@ -111,22 +111,22 @@
             </nav>
 
             <!-- Modal Login Portal -->
-            <div id="adminCheckModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
-                <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); padding: 35px 30px; border-radius: 20px; text-align: center; width: 360px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
-                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #e94560, #0f3460); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
-                        <i class="bi bi-controller" style="font-size: 2rem; color: white;"></i>
+            <div id="adminCheckModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15,23,42,0.6); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
+                <div style="background: #ffffff; padding: 32px 28px; border-radius: 20px; text-align: center; width: 360px; max-width: 90%; box-shadow: 0 20px 50px rgba(15,23,42,0.25); border: 1px solid #e2e8f0;">
+                    <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #1e3a8a, #2563eb); border-radius: 50%; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(37,99,235,0.25);">
+                        <i class="bi bi-controller" style="font-size: 1.8rem; color: white;"></i>
                     </div>
-                    <h5 style="font-weight: 700; color: white; margin-bottom: 8px;">Portal Akses AYA PlayStation</h5>
-                    <p style="color: rgba(255,255,255,0.6); font-size: 0.88rem; margin-bottom: 24px;">Pilih portal yang sesuai dengan peran Anda</p>
+                    <h5 style="font-weight: 700; color: #0f172a; margin-bottom: 6px; font-size: 1.15rem;">Portal Akses AYA PlayStation</h5>
+                    <p style="color: #64748b; font-size: 0.82rem; margin-bottom: 22px;">Pilih portal yang sesuai dengan peran Anda</p>
                     <div style="display: flex; gap: 10px; justify-content: center;">
-                        <button id="yesAdmin" style="flex: 1; padding: 10px 16px; font-size: 0.88rem; background: linear-gradient(135deg, #e94560, #c0392b); border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: 600; transition: all 0.3s;">
-                            <i class="bi bi-shield-lock-fill"></i><br><span style="font-size:0.78rem;">Admin / Sistem</span>
+                        <button id="yesAdmin" style="flex: 1; padding: 11px 14px; font-size: 0.85rem; background: linear-gradient(135deg, #1e3a8a, #0f172a); border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: 600; transition: all 0.25s; box-shadow: 0 4px 12px rgba(15,23,42,0.2);">
+                            <i class="bi bi-shield-lock-fill"></i><br><span style="font-size:0.76rem;">Admin / Sistem</span>
                         </button>
-                        <button id="noAdmin" style="flex: 1; padding: 10px 16px; font-size: 0.88rem; background: linear-gradient(135deg, #0984e3, #0652DD); border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: 600; transition: all 0.3s;">
-                            <i class="bi bi-person-fill"></i><br><span style="font-size:0.78rem;">Pelanggan</span>
+                        <button id="noAdmin" style="flex: 1; padding: 11px 14px; font-size: 0.85rem; background: linear-gradient(135deg, #2563eb, #1d4ed8); border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: 600; transition: all 0.25s; box-shadow: 0 4px 12px rgba(37,99,235,0.25);">
+                            <i class="bi bi-person-fill"></i><br><span style="font-size:0.76rem;">Pelanggan</span>
                         </button>
                     </div>
-                    <p style="margin-top: 16px; color: rgba(255,255,255,0.4); font-size: 0.78rem;">Klik di luar kotak ini untuk menutup</p>
+                    <p style="margin-top: 14px; color: #94a3b8; font-size: 0.74rem;">Klik di luar kotak ini untuk menutup</p>
                 </div>
             </div>
 

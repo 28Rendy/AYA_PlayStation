@@ -104,7 +104,7 @@
                     <li><a href="#details">Fasilitas</a></li>
                     <li><a href="#gallery">Gallery</a></li>
                     <li><a href="#pricing">Daftar Ruang</a></li>
-                    <li><a href="#" id="loginLink">Login</a></li>
+                    <li><a href="{{ route('login') }}" id="loginLink">Login</a></li>
                     <li><a href="#contact">Kontak</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -743,15 +743,21 @@
             }
         });
 
-        const loginLink = document.querySelector('a[href="{{ route('login') }}"]');
+        const loginLink = document.getElementById('loginLink');
         const modal = document.getElementById('adminCheckModal');
         const yesAdmin = document.getElementById('yesAdmin');
         const noAdmin = document.getElementById('noAdmin');
 
-        loginLink.addEventListener('click', function(event) {
-            event.preventDefault();
-            modal.style.display = 'flex';
-        });
+        if (loginLink) {
+            loginLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                if (modal) {
+                    modal.style.display = 'flex';
+                } else {
+                    window.location.href = "{{ route('login') }}";
+                }
+            });
+        }
 
         yesAdmin.addEventListener('click', function() {
             // Admin → ke halaman login dengan query role=admin

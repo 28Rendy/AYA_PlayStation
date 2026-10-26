@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\DataPerental;
 use App\Models\DataRuang;
+use App\Models\GaleriFoto;
+use App\Models\KontenFasilitas;
 use App\Models\PengaturanWeb;
 use App\Models\Ulasan;
 use Illuminate\Http\Request;
@@ -41,12 +43,14 @@ class FrontendController extends Controller
     public function facilities()
     {
         $data = $this->getCommonData();
+        $data['daftar_fasilitas'] = KontenFasilitas::where('aktif', true)->orderBy('urutan')->get();
         return view('frontend.facilities', $data);
     }
 
     public function gallery()
     {
         $data = $this->getCommonData();
+        $data['daftar_galeri'] = GaleriFoto::where('aktif', true)->orderBy('urutan')->get();
         return view('frontend.gallery', $data);
     }
 

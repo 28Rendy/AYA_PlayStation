@@ -154,12 +154,27 @@
     </a>
 </li>
 
-<!-- Pengaturan Website & Media -->
+<!-- Pengaturan Website & Konten Frontend -->
 <li class="nav-item {{ request()->routeIs('pengaturan-web.*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('pengaturan-web.index') }}">
+    <a class="nav-link {{ request()->routeIs('pengaturan-web.*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapsePengaturanWeb"
+        aria-expanded="{{ request()->routeIs('pengaturan-web.*') ? 'true' : 'false' }}" 
+        aria-controls="collapsePengaturanWeb">
         <i class="fas fa-fw fa-sliders-h"></i>
         <span>Pengaturan Website</span>
     </a>
+    <div id="collapsePengaturanWeb" 
+        class="collapse {{ request()->routeIs('pengaturan-web.*') ? 'show' : '' }}" 
+        aria-labelledby="headingPengaturanWeb" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Konten Frontend:</h6>
+            <a class="collapse-item {{ request()->routeIs('pengaturan-web.*') && request('tab') != 'fasilitas' && request('tab') != 'galeri' ? 'active font-weight-bold' : '' }}" 
+                href="{{ route('pengaturan-web.index', ['tab' => 'umum']) }}">Informasi & Kontak</a>
+            <a class="collapse-item {{ request('tab') == 'fasilitas' ? 'active font-weight-bold' : '' }}" 
+                href="{{ route('pengaturan-web.index', ['tab' => 'fasilitas']) }}">Kelola Fasilitas</a>
+            <a class="collapse-item {{ request('tab') == 'galeri' ? 'active font-weight-bold' : '' }}" 
+                href="{{ route('pengaturan-web.index', ['tab' => 'galeri']) }}">Kelola Galeri Foto</a>
+        </div>
+    </div>
 </li>
 
             <hr class="sidebar-divider">
@@ -242,10 +257,10 @@
                 <!-- Container Fluid-->
                 <div class="container-fluid" id="container-wrapper">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">{{ $judul }}</h1>
+                        <h1 class="h3 mb-0 text-gray-800">{{ $judul ?? 'Dashboard' }}</h1>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="./">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ $judul }}</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ $judul ?? 'Dashboard' }}</li>
                         </ol>
                     </div>
 

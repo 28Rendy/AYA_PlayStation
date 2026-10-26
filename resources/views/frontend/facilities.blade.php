@@ -22,107 +22,44 @@
         <div class="text-center mb-5">
             <span class="badge bg-primary px-3 py-2 rounded-pill text-white mb-2">Kenyamanan Terbaik</span>
             <h2 class="fw-bold">Fasilitas Lengkap untuk Kenyamanan Gaming Maksimal</h2>
-            <p class="text-muted col-lg-8 mx-auto">Kami tidak hanya menyewakan PlayStation, tetapi menghadirkan suasana santai dan fasilitas pendukung terlengkap.</p>
+            <p class="text-muted col-lg-8 mx-auto">Kami tidak hanya menyewakan PlayStation, tetapi menghadirkan suasana santai dan fasilitas pendukung terlengkap untuk Anda.</p>
         </div>
 
-        <div class="row gy-4 mb-5">
-            <!-- Fasilitas 1: VIP Lounge -->
-            <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="facility-card">
-                    <div class="pic">
-                        <img src="{{ asset('Frontend/img/facilities/vip_lounge.jpg') }}" alt="Ruang VIP Gaming Lounge">
-                    </div>
-                    <div class="content">
-                        <span class="facility-badge">Exclusive Room</span>
-                        <h4 class="font-weight-bold">Ruang VIP Gaming Sanctuary</h4>
-                        <p class="text-muted small">Nikmati sesi mabar privat dengan sofa recliner mewah, Smart TV 4K 65 inci, tata cahaya neon ambient, dan tata suara soundbar imersif untuk kenyamanan maksimal bersama kawan terdekat.</p>
+        <div class="row gy-4 mb-4">
+            @forelse($daftar_fasilitas as $index => $item)
+                <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="{{ (($index % 4) + 1) * 100 }}">
+                    <div class="facility-card h-100 shadow-sm rounded-4 overflow-hidden border bg-white d-flex flex-column">
+                        <div class="pic position-relative" style="height: 250px; overflow: hidden; background: #111;">
+                            <img src="{{ $item->getFotoSrc($index) }}" alt="{{ $item->alt_foto ?? $item->judul }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
+                            <span class="position-absolute top-0 end-0 m-3 badge bg-primary px-3 py-2 rounded-pill shadow-sm">
+                                {{ $item->label_badge ?? 'Layanan' }}
+                            </span>
+                        </div>
+                        <div class="content p-4 flex-grow-1 d-flex flex-column justify-content-between">
+                            <div>
+                                <h4 class="font-weight-bold fw-bold mb-2 text-dark">{{ $item->judul }}</h4>
+                                <p class="text-muted small mb-0" style="line-height: 1.6;">{{ $item->deskripsi }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Fasilitas 2: Cafe & Snack -->
-            <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="facility-card">
-                    <div class="pic">
-                        <img src="{{ asset('Frontend/img/facilities/cafe_snack.jpg') }}" alt="Arcade & Snack Bar">
-                    </div>
-                    <div class="content">
-                        <span class="facility-badge">Food & Beverage</span>
-                        <h4 class="font-weight-bold">Arcade & Chill Snack Bar</h4>
-                        <p class="text-muted small">Tersedia aneka minuman dingin segar, kopi pilihan, mie instan hangat, dan beragam camilan lezat yang siap diantar langsung ke meja Anda tanpa mengganggu jalannya permainan.</p>
-                    </div>
+            @empty
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">Belum ada data fasilitas yang ditambahkan.</p>
                 </div>
-            </div>
-
-            <!-- Fasilitas 3: Turnamen -->
-            <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="facility-card">
-                    <div class="pic">
-                        <img src="{{ asset('Frontend/img/facilities/tournament.jpg') }}" alt="Esports Tournament">
-                    </div>
-                    <div class="content">
-                        <span class="facility-badge">Community & Esports</span>
-                        <h4 class="font-weight-bold">Turnamen & Komunitas Gamers</h4>
-                        <p class="text-muted small">Wadah kompetisi berkala untuk game-game kompetitif seperti eFootball, EA Sports FC, Tekken, dan Mortal Kombat dengan hadiah menarik dan atmosfer seru bersama komunitas lokal.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Fasilitas 4: Rental Rumahan -->
-            <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                <div class="facility-card">
-                    <div class="pic">
-                        <img src="{{ asset('Frontend/img/facilities/rental_kit.jpg') }}" alt="Home Rental Package">
-                    </div>
-                    <div class="content">
-                        <span class="facility-badge">Home Delivery</span>
-                        <h4 class="font-weight-bold">Paket Rental Konsol Rumahan</h4>
-                        <p class="text-muted small">Ingin main di rumah bareng keluarga? Kami menyediakan sewa unit PS4 & PS5 harian lengkap dengan tas koper protektif, 2 stik wireless, dan bundle game favorit siap main.</p>
-                    </div>
-                </div>
-            </div>
+            @endforelse
         </div>
 
-        <!-- Fasilitas Pendukung Lainnya -->
-        <div class="section-title text-center mb-4 mt-5">
-            <h3 class="fw-bold">Fasilitas Pendukung Kenyamanan</h3>
+        <!-- Banner Kontak & Booking Cepat -->
+        <div class="mt-5 p-4 rounded-4 shadow-sm text-center text-md-start d-md-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%); color: white;">
+            <div class="mb-3 mb-md-0">
+                <h4 class="fw-bold mb-1 text-white">Ingin Menikmati Fasilitas Kami?</h4>
+                <p class="mb-0 text-white-50">Hubungi kami sekarang untuk reservasi ruangan atau sewa konsol rumahan.</p>
+            </div>
+            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $pengaturan->whatsapp ?? '6281234567890') }}?text={{ urlencode('Halo ' . ($pengaturan->nama_rental ?? 'AYA PlayStation') . ', saya ingin bertanya mengenai fasilitas dan reservasi ruang.') }}" target="_blank" class="btn btn-light btn-lg px-4 font-weight-bold shadow-sm" style="color: #0d6efd; font-weight: 600;">
+                <i class="bi bi-whatsapp me-2"></i> Hubungi WhatsApp
+            </a>
         </div>
-
-        <div class="row gy-4 align-items-center mb-4">
-            <div class="col-md-5">
-                <img src="{{ asset('Frontend/img/Ruangan1.jpg') }}" class="img-fluid rounded-4 shadow" alt="Ruangan Reguler">
-            </div>
-            <div class="col-md-7">
-                <h4 class="fw-bold">Ruangan Bermain Nyaman & Bersih</h4>
-                <p class="text-muted">Setiap ruangan dirancang khusus agar Anda dapat fokus menikmati permainan favorit tanpa gangguan.</p>
-                <ul class="text-muted">
-                    <li>Pilihan kapasitas ruangan 1 hingga 3 pemain.</li>
-                    <li>Pendingin ruangan (AC) yang sejuk, bersih, dan harum.</li>
-                    <li>Koneksi internet cepat untuk update game multiplayer online.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="row gy-4 align-items-center mb-4">
-            <div class="col-md-5 order-md-2">
-                <img src="{{ asset('Frontend/img/mushola.jpg') }}" class="img-fluid rounded-4 shadow" alt="Mushola">
-            </div>
-            <div class="col-md-7 order-md-1">
-                <h4 class="fw-bold">Mushola Bersih & Tempat Wudhu</h4>
-                <p class="text-muted">Ibadah tetap terjaga saat asyik bermain bersama kawan-kawan. Kami menyediakan mushola yang bersih, tenang, dan terawat dilengkapi dengan sarana wudhu yang memadai.</p>
-            </div>
-        </div>
-
-        <div class="row gy-4 align-items-center">
-            <div class="col-md-5">
-                <img src="{{ asset('Frontend/img/smooking.jpg') }}" class="img-fluid rounded-4 shadow" alt="Smoking Area">
-            </div>
-            <div class="col-md-7">
-                <h4 class="fw-bold">Area Merokok Terpisah (Outdoor/Semi-Outdoor)</h4>
-                <p class="text-muted">Area santai khusus merokok dengan sirkulasi udara terbuka yang baik, sehingga ruangan reguler tetap bebas asap dan nyaman bagi semua pengunjung.</p>
-            </div>
-        </div>
-
     </div>
 </section>
 @endsection

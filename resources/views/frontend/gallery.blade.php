@@ -26,83 +26,23 @@
         </div>
 
         <div class="row g-4">
-            <!-- Item 1 -->
-            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-                <div class="gallery-item rounded-4 overflow-hidden shadow-sm h-100 position-relative">
-                    <a href="{{ asset('Frontend/img/facilities/vip_lounge.jpg') }}" class="glightbox" data-gallery="images-gallery">
-                        <img src="{{ asset('Frontend/img/facilities/vip_lounge.jpg') }}" alt="VIP Gaming Lounge" class="img-fluid w-100" style="height: 260px; object-fit: cover;">
-                        <div class="p-3 bg-white">
-                            <h6 class="fw-bold mb-1 text-dark">Ruang VIP Gaming Lounge</h6>
-                            <small class="text-muted">TV 4K 65" & Sofa Recliner</small>
-                        </div>
-                    </a>
+            @forelse($daftar_galeri as $index => $item)
+                <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="{{ (($index % 6) + 1) * 100 }}">
+                    <div class="gallery-item rounded-4 overflow-hidden shadow-sm h-100 position-relative border bg-white">
+                        <a href="{{ $item->getFotoSrc() }}" class="glightbox" data-gallery="images-gallery">
+                            <img src="{{ $item->getFotoSrc() }}" alt="{{ $item->alt_foto ?? $item->judul }}" class="img-fluid w-100" style="height: 260px; object-fit: cover;">
+                            <div class="p-3 bg-white">
+                                <h6 class="fw-bold mb-1 text-dark">{{ $item->judul }}</h6>
+                                <small class="text-muted">{{ $item->keterangan ?? 'Dokumentasi AYA PlayStation' }}</small>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Item 2 -->
-            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-                <div class="gallery-item rounded-4 overflow-hidden shadow-sm h-100 position-relative">
-                    <a href="{{ asset('Frontend/img/facilities/cafe_snack.jpg') }}" class="glightbox" data-gallery="images-gallery">
-                        <img src="{{ asset('Frontend/img/facilities/cafe_snack.jpg') }}" alt="Snack & Coffee Bar" class="img-fluid w-100" style="height: 260px; object-fit: cover;">
-                        <div class="p-3 bg-white">
-                            <h6 class="fw-bold mb-1 text-dark">Chill Snack & Drink Bar</h6>
-                            <small class="text-muted">Aneka Camilan & Kopi Dingin</small>
-                        </div>
-                    </a>
+            @empty
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">Belum ada foto dalam galeri.</p>
                 </div>
-            </div>
-
-            <!-- Item 3 -->
-            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-                <div class="gallery-item rounded-4 overflow-hidden shadow-sm h-100 position-relative">
-                    <a href="{{ asset('Frontend/img/facilities/tournament.jpg') }}" class="glightbox" data-gallery="images-gallery">
-                        <img src="{{ asset('Frontend/img/facilities/tournament.jpg') }}" alt="Turnamen Esports" class="img-fluid w-100" style="height: 260px; object-fit: cover;">
-                        <div class="p-3 bg-white">
-                            <h6 class="fw-bold mb-1 text-dark">Turnamen Komunitas Gaming</h6>
-                            <small class="text-muted">Kompetisi eFootball & Tekken</small>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Item 4 -->
-            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
-                <div class="gallery-item rounded-4 overflow-hidden shadow-sm h-100 position-relative">
-                    <a href="{{ asset('Frontend/img/facilities/rental_kit.jpg') }}" class="glightbox" data-gallery="images-gallery">
-                        <img src="{{ asset('Frontend/img/facilities/rental_kit.jpg') }}" alt="Paket Rental Rumahan" class="img-fluid w-100" style="height: 260px; object-fit: cover;">
-                        <div class="p-3 bg-white">
-                            <h6 class="fw-bold mb-1 text-dark">Paket Sewa Unit Rumahan</h6>
-                            <small class="text-muted">Hardcase & 2 Stik Wireless</small>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Item 5 -->
-            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="500">
-                <div class="gallery-item rounded-4 overflow-hidden shadow-sm h-100 position-relative">
-                    <a href="{{ asset('Frontend/img/Ruangan1.jpg') }}" class="glightbox" data-gallery="images-gallery">
-                        <img src="{{ asset('Frontend/img/Ruangan1.jpg') }}" alt="Ruang Reguler AC" class="img-fluid w-100" style="height: 260px; object-fit: cover;">
-                        <div class="p-3 bg-white">
-                            <h6 class="fw-bold mb-1 text-dark">Ruang Mabar Reguler AC</h6>
-                            <small class="text-muted">Sejuk, Bersih, dan Tenang</small>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Item 6 -->
-            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="600">
-                <div class="gallery-item rounded-4 overflow-hidden shadow-sm h-100 position-relative">
-                    <a href="{{ asset('Frontend/img/ps4.jpg') }}" class="glightbox" data-gallery="images-gallery">
-                        <img src="{{ asset('Frontend/img/ps4.jpg') }}" alt="Konsol & DualShock" class="img-fluid w-100" style="height: 260px; object-fit: cover;">
-                        <div class="p-3 bg-white">
-                            <h6 class="fw-bold mb-1 text-dark">Perangkat Konsol Original</h6>
-                            <small class="text-muted">Responsif dan Terawat Prima</small>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GaleriFoto;
+use App\Models\KontenFasilitas;
 use App\Models\PengaturanWeb;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -17,8 +19,11 @@ class PengaturanWebController extends Controller
     {
         $judul = 'Pengaturan Website & Media';
         $pengaturan = PengaturanWeb::getSettings();
+        $fasilitas = KontenFasilitas::orderBy('urutan')->get();
+        $galeri = GaleriFoto::orderBy('urutan')->get();
+        $activeTab = request()->get('tab', 'umum');
 
-        return view('pengaturan_web', compact('pengaturan', 'judul'));
+        return view('pengaturan_web', compact('pengaturan', 'judul', 'fasilitas', 'galeri', 'activeTab'));
     }
 
     public function update(Request $request)
@@ -77,6 +82,7 @@ class PengaturanWebController extends Controller
 
         $pengaturan->update($data);
 
-        return redirect()->route('pengaturan-web.index')->with('pesan', 'Pengaturan website dan media berhasil disimpan & diperbarui di frontend!');
+        return redirect()->route('pengaturan-web.index', ['tab' => 'umum'])
+            ->with('pesan', 'Pengaturan website dan media berhasil disimpan & diperbarui di frontend!');
     }
 }

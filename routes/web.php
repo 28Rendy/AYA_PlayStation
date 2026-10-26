@@ -96,6 +96,12 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('ubah-periode', [DataPerentalController::class, 'ubahPeriode'])->name('ubahPeriode');
     Route::get('/pengaturan-web', 'PengaturanWebController@index')->name('pengaturan-web.index');
     Route::post('/pengaturan-web', 'PengaturanWebController@update')->name('pengaturan-web.update');
+    Route::post('/konten-fasilitas', 'KontenFasilitasController@store')->name('konten-fasilitas.store');
+    Route::put('/konten-fasilitas/{id}', 'KontenFasilitasController@update')->name('konten-fasilitas.update');
+    Route::delete('/konten-fasilitas/{id}', 'KontenFasilitasController@destroy')->name('konten-fasilitas.destroy');
+    Route::post('/galeri-foto', 'GaleriFotoController@store')->name('galeri-foto.store');
+    Route::put('/galeri-foto/{id}', 'GaleriFotoController@update')->name('galeri-foto.update');
+    Route::delete('/galeri-foto/{id}', 'GaleriFotoController@destroy')->name('galeri-foto.destroy');
 });
 
 Route::post('ulasan', [UlasanController::class, 'store'])->name('ulasan.store');

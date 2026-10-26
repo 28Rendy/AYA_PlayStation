@@ -104,31 +104,11 @@
                     <li><a href="#details">Fasilitas</a></li>
                     <li><a href="#gallery">Gallery</a></li>
                     <li><a href="#pricing">Daftar Ruang</a></li>
-                    <li><a href="{{ route('login') }}" id="loginLink">Login</a></li>
+                    <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="#contact">Kontak</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
-
-            <!-- Modal Login Portal -->
-            <div id="adminCheckModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15,23,42,0.6); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
-                <div style="background: #ffffff; padding: 32px 28px; border-radius: 20px; text-align: center; width: 360px; max-width: 90%; box-shadow: 0 20px 50px rgba(15,23,42,0.25); border: 1px solid #e2e8f0;">
-                    <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #1e3a8a, #2563eb); border-radius: 50%; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(37,99,235,0.25);">
-                        <i class="bi bi-controller" style="font-size: 1.8rem; color: white;"></i>
-                    </div>
-                    <h5 style="font-weight: 700; color: #0f172a; margin-bottom: 6px; font-size: 1.15rem;">Portal Akses AYA PlayStation</h5>
-                    <p style="color: #64748b; font-size: 0.82rem; margin-bottom: 22px;">Pilih portal yang sesuai dengan peran Anda</p>
-                    <div style="display: flex; gap: 10px; justify-content: center;">
-                        <button id="yesAdmin" style="flex: 1; padding: 11px 14px; font-size: 0.85rem; background: linear-gradient(135deg, #1e3a8a, #0f172a); border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: 600; transition: all 0.25s; box-shadow: 0 4px 12px rgba(15,23,42,0.2);">
-                            <i class="bi bi-shield-lock-fill"></i><br><span style="font-size:0.76rem;">Admin / Sistem</span>
-                        </button>
-                        <button id="noAdmin" style="flex: 1; padding: 11px 14px; font-size: 0.85rem; background: linear-gradient(135deg, #2563eb, #1d4ed8); border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: 600; transition: all 0.25s; box-shadow: 0 4px 12px rgba(37,99,235,0.25);">
-                            <i class="bi bi-person-fill"></i><br><span style="font-size:0.76rem;">Pelanggan</span>
-                        </button>
-                    </div>
-                    <p style="margin-top: 14px; color: #94a3b8; font-size: 0.74rem;">Klik di luar kotak ini untuk menutup</p>
-                </div>
-            </div>
 
         </div>
     </header>
@@ -743,37 +723,6 @@
             }
         });
 
-        const loginLink = document.getElementById('loginLink');
-        const modal = document.getElementById('adminCheckModal');
-        const yesAdmin = document.getElementById('yesAdmin');
-        const noAdmin = document.getElementById('noAdmin');
-
-        if (loginLink) {
-            loginLink.addEventListener('click', function(event) {
-                event.preventDefault();
-                if (modal) {
-                    modal.style.display = 'flex';
-                } else {
-                    window.location.href = "{{ route('login') }}";
-                }
-            });
-        }
-
-        yesAdmin.addEventListener('click', function() {
-            // Admin → ke halaman login dengan query role=admin
-            window.location.href = "{{ route('login') }}?role=admin";
-        });
-
-        noAdmin.addEventListener('click', function() {
-            // Pelanggan → langsung ke halaman login/register pelanggan
-            window.location.href = "{{ route('login') }}";
-        });
-
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
     </script>
 
 </body>

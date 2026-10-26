@@ -40,7 +40,7 @@
             background: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: 20px;
-            padding: 30px 28px;
+            padding: 32px 28px;
             box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 20px 35px -10px rgba(30, 58, 138, 0.12);
             animation: fadeIn 0.4s ease;
         }
@@ -58,7 +58,7 @@
 
         .brand-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .brand-logo {
@@ -82,29 +82,6 @@
         .brand-subtitle {
             font-size: 0.8rem;
             color: #64748b;
-        }
-
-        .role-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.74rem;
-            font-weight: 600;
-            margin-top: 6px;
-        }
-
-        .role-badge.admin {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            color: #dc2626;
-        }
-
-        .role-badge.pelanggan {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-            color: #1d4ed8;
         }
 
         .form-group {
@@ -196,34 +173,19 @@
             margin-top: 6px;
             letter-spacing: 0.3px;
             font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(30, 58, 138, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
         }
 
-        .admin-btn {
-            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
-            color: #ffffff;
-            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
-        }
-
-        .admin-btn:hover {
-            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+        .btn-masuk:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
             transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.3);
-        }
-
-        .pelanggan-btn {
-            background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
-            color: #ffffff;
-            box-shadow: 0 4px 14px rgba(29, 78, 216, 0.25);
-        }
-
-        .pelanggan-btn:hover {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(29, 78, 216, 0.3);
+            box-shadow: 0 6px 18px rgba(30, 58, 138, 0.3);
         }
 
         .divider {
@@ -341,8 +303,7 @@
             <div class="brand-header">
                 <img src="{{ asset('Frontend/img/aya_logo.png') }}" class="brand-logo" alt="AYA PlayStation">
                 <div class="brand-title">AYA PlayStation</div>
-                <div class="brand-subtitle" id="loginSubtitle">Masuk ke akun Anda</div>
-                <div id="roleBadge" class="role-badge" style="display: none;"></div>
+                <div class="brand-subtitle">Silakan masukkan email dan kata sandi Anda</div>
             </div>
 
             @if (session('success'))
@@ -389,19 +350,19 @@
                     </label>
                 </div>
 
-                <button type="submit" class="btn-masuk" id="submitBtn">
-                    <i class="fas fa-sign-in-alt"></i> <span>Masuk</span>
+                <button type="submit" class="btn-masuk">
+                    <i class="fas fa-sign-in-alt"></i> <span>Masuk Sekarang</span>
                 </button>
 
             </form>
 
-            <div class="divider" id="registerSection">
+            <div class="divider">
                 <div class="divider-line"></div>
                 <span class="divider-text">atau</span>
                 <div class="divider-line"></div>
             </div>
 
-            <div class="bottom-links" id="registerLinks">
+            <div class="bottom-links">
                 <span>Belum punya akun? </span>
                 <a href="{{ route('register') }}">Daftar sebagai Pelanggan</a>
             </div>
@@ -409,34 +370,6 @@
             <a href="{{ route('welcome') }}" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
         </div>
     </div>
-
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const role = urlParams.get('role');
-        const badge = document.getElementById('roleBadge');
-        const submitBtn = document.getElementById('submitBtn');
-        const subtitle = document.getElementById('loginSubtitle');
-        const registerSection = document.getElementById('registerSection');
-        const registerLinks = document.getElementById('registerLinks');
-
-        if (role === 'admin') {
-            badge.style.display = 'inline-flex';
-            badge.className = 'role-badge admin';
-            badge.innerHTML = '<i class="fas fa-shield-alt"></i> Mode Administrator';
-            submitBtn.className = 'btn-masuk admin-btn';
-            submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Masuk sebagai Admin';
-            subtitle.textContent = 'Akses panel administrator sistem';
-            registerSection.style.display = 'none';
-            registerLinks.style.display = 'none';
-        } else {
-            badge.style.display = 'inline-flex';
-            badge.className = 'role-badge pelanggan';
-            badge.innerHTML = '<i class="fas fa-user"></i> Portal Pelanggan';
-            submitBtn.className = 'btn-masuk pelanggan-btn';
-            submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Masuk sebagai Pelanggan';
-            subtitle.textContent = 'Akses akun pelanggan Anda';
-        }
-    </script>
 </body>
 
 </html>

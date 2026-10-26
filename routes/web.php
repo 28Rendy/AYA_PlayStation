@@ -72,6 +72,7 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+Route::get('/pelanggan/dashboard', 'PelangganController@index')->name('pelanggan.dashboard');
 
 // Cukup gunakan Route::resource untuk DTruang
 Route::resource('/DTruang', 'DataRuangController');

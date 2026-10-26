@@ -98,7 +98,7 @@
         aria-labelledby="headingForm" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Laporan</h6>
-            <a class="collapse-item {{ request()->is('pemasukan') ? 'active font-weight-bold' : '' }}" href="pemasukan">Pemasukan Kas</a>
+            <a class="collapse-item {{ request()->routeIs('pemasukan.*') ? 'active font-weight-bold' : '' }}" href="{{ route('pemasukan.index') }}">Pemasukan Kas</a>
             <a class="collapse-item {{ request()->routeIs('pengeluaran.index') ? 'active font-weight-bold' : '' }}" href="{{ route('pengeluaran.index') }}">Pengeluaran Kas</a>
         </div>
     </div>

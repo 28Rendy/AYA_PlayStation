@@ -1,92 +1,86 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
+
+use App\Models\DataPerental;
+use App\Models\Penyewa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DataPemasukanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function index()
+    {
+        $judul = 'Data Pemasukan Kas';
 
-     public function index()
-     {
-         $judul = 'Data Pemasukan';
-         return view('pemasukan',['judul' => $judul]);
-     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+        // Total pemasukan dari tabel Penyewa
+        $kasPenyewa = Penyewa::selectRaw('
+            DATE(tanggal_sewa) as tanggal, 
+            DAYNAME(tanggal_sewa) as hari, 
+            MONTHNAME(tanggal_sewa) as bulan, 
+            YEAR(tanggal_sewa) as tahun, 
+            SUM(total_harga) as total_kas_masuk
+        ')
+        ->groupBy(DB::raw('DATE(tanggal_sewa), DAYNAME(tanggal_sewa), MONTHNAME(tanggal_sewa), YEAR(tanggal_sewa)'))
+        ->get();
+
+        // Total pemasukan dari tabel DataPerental
+        $kasPerental = DataPerental::selectRaw('
+            DATE(tanggal) as tanggal, 
+            DAYNAME(tanggal) as hari, 
+            MONTHNAME(tanggal) as bulan, 
+            YEAR(tanggal) as tahun, 
+            SUM(total_bayar) as total_kas_masuk
+        ')
+        ->groupBy('tanggal')
+        ->get();
+
+        // Gabungkan hasil dari kedua query
+        $kasMasukGabungan = $kasPenyewa->concat($kasPerental)
+            ->sortByDesc('tanggal')
+            ->values();
+
+        return view('pemasukan', compact('kasMasukGabungan', 'judul'));
+    }
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
-    }
-    public function logout()
-    {
-        Auth::logout(); // Log out the user
-        request()->session()->invalidate(); // Invalidate the session
-        request()->session()->regenerateToken(); // Regenerate CSRF token
-        return redirect('/login'); // Redirect to login page
     }
 }

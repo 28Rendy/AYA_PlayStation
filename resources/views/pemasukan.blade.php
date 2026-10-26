@@ -24,16 +24,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($kasMasukGabungan as $kas)
+                            @forelse ($kasMasukGabungan ?? [] as $kas)
                                 <tr>
-                                
                                     <td>{{ $kas->hari }}</td>
                                     <td>{{ $kas->tanggal }}</td>
                                     <td>{{ $kas->bulan }}</td>
                                     <td>{{ $kas->tahun }}</td>
-                                    <td>{{ number_format($kas->total_kas_masuk, 0, ',', '.') }}</td>
+                                    <td>Rp {{ number_format($kas->total_kas_masuk, 0, ',', '.') }}</td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-4">
+                                        <i class="fas fa-inbox fa-2x mb-2 text-muted d-block"></i>
+                                        Belum ada data pemasukan kas tercatat.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
 

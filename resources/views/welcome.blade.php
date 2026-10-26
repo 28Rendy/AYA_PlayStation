@@ -4,13 +4,22 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>AYA PlayStation - Modern Gaming Lounge & Rental Console</title>
-    <meta name="description" content="Layanan rental PlayStation 4 & PlayStation 5 terbaik, gaming lounge ber-AC dengan ruang VIP dan sewa konsol harian terpercaya.">
+    <title>{{ $pengaturan->nama_rental ?? 'AYA PlayStation' }} - {{ $pengaturan->tagline ?? 'Modern Gaming Lounge & Rental Console' }}</title>
+    <meta name="description" content="{{ $pengaturan->deskripsi ?? 'Layanan rental PlayStation 4 & PlayStation 5 terbaik, gaming lounge ber-AC dengan ruang VIP dan sewa konsol harian terpercaya.' }}">
     <meta name="keywords" content="rental ps, rental playstation, ps4, ps5, gaming lounge, sewa ps">
 
+    @php
+        $logoSrc = ($pengaturan->logo && file_exists(public_path($pengaturan->logo))) ? asset($pengaturan->logo) : asset('Frontend/img/aya_logo.png');
+        $heroSrc = ($pengaturan->hero_image && file_exists(public_path($pengaturan->hero_image))) ? asset($pengaturan->hero_image) : asset('Frontend/img/facilities/vip_lounge.jpg');
+        $cleanWa = preg_replace('/[^0-9]/', '', $pengaturan->whatsapp ?? '6281234567890');
+        if (substr($cleanWa, 0, 1) === '0') {
+            $cleanWa = '62' . substr($cleanWa, 1);
+        }
+    @endphp
+
     <!-- Favicons -->
-    <link href="{{ asset('Frontend/img/aya_logo.png') }}" rel="icon">
-    <link href="{{ asset('Frontend/img/aya_logo.png') }}" rel="apple-touch-icon">
+    <link href="{{ $logoSrc }}" rel="icon">
+    <link href="{{ $logoSrc }}" rel="apple-touch-icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -92,8 +101,8 @@
         <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
             <a href="{{ route('welcome') }}" class="logo d-flex align-items-center">
-                <img src="{{ asset('Frontend/img/aya_logo.png') }}" alt="AYA PlayStation" style="max-height: 44px; margin-right: 12px; border-radius: 10px;">
-                <h1 class="sitename">AYA PlayStation</h1>
+                <img src="{{ $logoSrc }}" alt="{{ $pengaturan->nama_rental ?? 'AYA PlayStation' }}" style="max-height: 44px; margin-right: 12px; border-radius: 10px;">
+                <h1 class="sitename">{{ $pengaturan->nama_rental ?? 'AYA PlayStation' }}</h1>
             </a>
 
             <nav id="navmenu" class="navmenu">
@@ -134,15 +143,15 @@
             <div class="container">
                 <div class="row gy-4 justify-content-between">
                     <div class="col-lg-5 order-lg-last hero-img" data-aos="zoom-out" data-aos-delay="100">
-                        <img src="{{ asset('Frontend/img/facilities/vip_lounge.jpg') }}" class="img-fluid rounded-4 shadow-lg animated" alt="AYA PlayStation Lounge" style="border-radius: 20px; border: 2px solid rgba(255,255,255,0.1);">
+                        <img src="{{ $heroSrc }}" class="img-fluid rounded-4 shadow-lg animated" alt="{{ $pengaturan->nama_rental ?? 'AYA PlayStation' }}" style="border-radius: 20px; border: 2px solid rgba(255,255,255,0.1); max-height: 380px; width: 100%; object-fit: cover;">
                     </div>
 
                     <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-in">
-                        <h1>Nikmati Sensasi Bermain Di <span>AYA PlayStation</span></h1>
-                        <p>Lounge Gaming Modern & Rental PlayStation Terpercaya. Konsol PS4 & PS5 dengan TV 4K, Game Terbaru, Ruang VIP Ber-AC, dan Pelayanan Ramah.</p>
+                        <h1>{{ $pengaturan->hero_title ?? 'Nikmati Sensasi Bermain Di AYA PlayStation' }}</h1>
+                        <p>{{ $pengaturan->hero_subtitle ?? 'Lounge Gaming Modern & Rental PlayStation Terpercaya. Konsol PS4 & PS5 dengan TV 4K, Game Terbaru, Ruang VIP Ber-AC, dan Pelayanan Ramah.' }}</p>
                         <div class="d-flex">
                             <a href="#pricing" class="btn-get-started">Pesan Ruangan</a>
-                            <a href="#facilities" class="btn-watch-video d-flex align-items-center ms-3"><i class="bi bi-controller"></i><span>Lihat Fasilitas</span></a>
+                            <a href="https://wa.me/{{ $cleanWa }}?text={{ urlencode('Halo ' . ($pengaturan->nama_rental ?? 'AYA PlayStation') . ', saya ingin bertanya seputar sewa/rental konsol & ruangan.') }}" target="_blank" class="btn-watch-video d-flex align-items-center ms-3"><i class="bi bi-whatsapp"></i><span>Chat WhatsApp</span></a>
                         </div>
                     </div>
 
@@ -506,61 +515,45 @@
             <div class="container">
                 <div class="row gy-4">
 
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="pricing-tem">
-                            <h3 class="text-dark">Ruang 001</h3>
-                            <div class="price"><sup>Rp</sup>8.000<span> / jam</span></div>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>Kapasitas: 2 Pemain</li>
-                                <li>PS4 Pro & 2x Joystick</li>
-                                <li>Monitor Gaming 24"</li>
-                                <li>Ruangan Ber-AC</li>
-                            </ul>
-                            <a href="#contact" class="btn-buy">Hubungi Kami</a>
+                    @forelse($data_ruang ?? [] as $ruang)
+                        <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="pricing-tem h-100 d-flex flex-column justify-content-between">
+                                <div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h3 class="text-dark mb-0">Ruang {{ $ruang->nomor_ruang }}</h3>
+                                        <span class="badge {{ $ruang->status_ruang == 'Tersedia' ? 'bg-success' : 'bg-danger' }} text-white px-2 py-1" style="font-size: 0.75rem;">
+                                            {{ $ruang->status_ruang }}
+                                        </span>
+                                    </div>
+                                    <div class="price"><sup>Rp</sup>{{ number_format($ruang->harga_perjam, 0, ',', '.') }}<span> / jam</span></div>
+                                    <ul class="list-unstyled mt-3 mb-4 text-start">
+                                        <li><i class="bi bi-people text-primary me-2"></i> Kapasitas: {{ $ruang->kapasitas }}</li>
+                                        <li><i class="bi bi-controller text-primary me-2"></i> {{ $ruang->perangkat_tersedia }}</li>
+                                        <li><i class="bi bi-clock text-primary me-2"></i> Jam: {{ $ruang->jam_operasional }}</li>
+                                        <li><i class="bi bi-check-circle text-primary me-2"></i> Kondisi: {{ $ruang->kondisi_perangkat }}</li>
+                                    </ul>
+                                </div>
+                                <div class="mt-3">
+                                    @php
+                                        $waMsg = urlencode("Halo " . ($pengaturan->nama_rental ?? 'AYA PlayStation') . ", saya ingin reservasi/booking Ruang " . $ruang->nomor_ruang . ". Apakah tersedia?");
+                                    @endphp
+                                    @if($ruang->status_ruang == 'Tersedia')
+                                        <a href="https://wa.me/{{ $cleanWa }}?text={{ $waMsg }}" target="_blank" class="btn-buy d-block text-center text-white" style="background: #2563eb; text-decoration: none;">
+                                            <i class="bi bi-whatsapp me-1"></i> Pesan via WA
+                                        </a>
+                                    @else
+                                        <button class="btn-buy d-block text-center text-muted w-100" style="background: #e2e8f0; cursor: not-allowed;" disabled>
+                                            Sedang Penuh
+                                        </button>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="pricing-tem">
-                            <h3 class="text-dark">Ruang 002</h3>
-                            <div class="price"><sup>Rp</sup>8.000<span> / jam</span></div>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>Kapasitas: 2 Pemain</li>
-                                <li>PS4 & 2x Joystick</li>
-                                <li>Televisi HD 24"</li>
-                                <li>Ruangan Ber-AC</li>
-                            </ul>
-                            <a href="#contact" class="btn-buy">Hubungi Kami</a>
+                    @empty
+                        <div class="col-12 text-center text-muted py-4">
+                            Belum ada daftar ruang yang ditambahkan.
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="pricing-tem">
-                            <h3 class="text-dark">Ruang 003</h3>
-                            <div class="price"><sup>Rp</sup>8.000<span> / jam</span></div>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>Kapasitas: 3 Pemain</li>
-                                <li>PS4 & 2x Joystick</li>
-                                <li>Televisi HD 24"</li>
-                                <li>Ruangan Ber-AC</li>
-                            </ul>
-                            <a href="#contact" class="btn-buy">Hubungi Kami</a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="pricing-tem">
-                            <h3 class="text-dark">Ruang 004</h3>
-                            <div class="price"><sup>Rp</sup>6.000<span> / jam</span></div>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>Kapasitas: 1 Pemain</li>
-                                <li>PS4 & 1x Joystick</li>
-                                <li>Televisi HD 24"</li>
-                                <li>Ruangan Ber-AC</li>
-                            </ul>
-                            <a href="#contact" class="btn-buy">Hubungi Kami</a>
-                        </div>
-                    </div>
+                    @endforelse
 
                 </div>
             </div>
@@ -584,7 +577,7 @@
                             <i class="bi bi-geo-alt flex-shrink-0"></i>
                             <div>
                                 <h3>Lokasi Lounge</h3>
-                                <p>Jl. Utama Entertainment No. 88, Pusat Gaming</p>
+                                <p>{{ $pengaturan->alamat ?? 'Jl. Utama Entertainment No. 88, Pusat Gaming' }}</p>
                             </div>
                         </div>
 
@@ -592,7 +585,7 @@
                             <i class="bi bi-telephone flex-shrink-0"></i>
                             <div>
                                 <h3>Telepon / WhatsApp</h3>
-                                <p>+62 812-3456-7890</p>
+                                <p><a href="https://wa.me/{{ $cleanWa }}" target="_blank" style="color: inherit; text-decoration: none;">{{ $pengaturan->whatsapp ?? $pengaturan->telepon ?? '+62 812-3456-7890' }}</a></p>
                             </div>
                         </div>
 
@@ -600,7 +593,7 @@
                             <i class="bi bi-envelope flex-shrink-0"></i>
                             <div>
                                 <h3>Email Resmi</h3>
-                                <p>kontak@ayaplaystation.com</p>
+                                <p>{{ $pengaturan->email ?? 'kontak@ayaplaystation.com' }}</p>
                             </div>
                         </div>
 
@@ -655,14 +648,15 @@
             <div class="row gy-4">
                 <div class="col-lg-5 col-md-6 footer-about">
                     <a href="{{ route('welcome') }}" class="logo d-flex align-items-center">
-                        <img src="{{ asset('Frontend/img/aya_logo.png') }}" alt="" style="max-height: 40px; margin-right: 10px; border-radius: 8px;">
-                        <span class="sitename">AYA PlayStation</span>
+                        <img src="{{ $logoSrc }}" alt="{{ $pengaturan->nama_rental ?? 'AYA PlayStation' }}" style="max-height: 40px; margin-right: 10px; border-radius: 8px;">
+                        <span class="sitename">{{ $pengaturan->nama_rental ?? 'AYA PlayStation' }}</span>
                     </a>
                     <div class="footer-contact pt-3">
-                        <p>Modern Gaming Lounge & PlayStation Rental Service</p>
-                        <p>Pusat hiburan game konsol dengan kenyamanan dan performa terbaik.</p>
-                        <p class="mt-3"><strong>Telepon:</strong> <span>+62 812-3456-7890</span></p>
-                        <p><strong>Email:</strong> <span>kontak@ayaplaystation.com</span></p>
+                        <p>{{ $pengaturan->tagline ?? 'Modern Gaming Lounge & PlayStation Rental Service' }}</p>
+                        <p>{{ $pengaturan->deskripsi ?? 'Pusat hiburan game konsol dengan kenyamanan dan performa terbaik.' }}</p>
+                        <p class="mt-3"><strong>Telepon:</strong> <span>{{ $pengaturan->telepon ?? '+62 812-3456-7890' }}</span></p>
+                        <p><strong>Email:</strong> <span>{{ $pengaturan->email ?? 'kontak@ayaplaystation.com' }}</span></p>
+                        <p><strong>Alamat:</strong> <span>{{ $pengaturan->alamat ?? 'Jl. Utama Entertainment No. 88, Pusat Gaming' }}</span></p>
                     </div>
                 </div>
 
@@ -679,7 +673,7 @@
 
                 <div class="col-lg-4 col-md-3 footer-links">
                     <h4>Jam Operasional</h4>
-                    <p class="text-muted small">Senin - Minggu: 09:00 - 24:00 WIB</p>
+                    <p class="text-muted small">{{ $pengaturan->jam_operasional ?? 'Senin - Minggu: 09:00 - 24:00 WIB' }}</p>
                     <p class="text-muted small">Layanan Rental Rumahan: Setiap Hari</p>
                 </div>
 
@@ -688,7 +682,7 @@
         </div>
 
         <div class="container copyright text-center mt-4">
-            <p>© <span>Hak Cipta</span> <strong class="px-1 sitename">AYA PlayStation</strong> <span>Seluruh Hak Dilindungi</span></p>
+            <p>© <span>Hak Cipta</span> <strong class="px-1 sitename">{{ $pengaturan->nama_rental ?? 'AYA PlayStation' }}</strong> <span>Seluruh Hak Dilindungi</span></p>
         </div>
 
     </footer>

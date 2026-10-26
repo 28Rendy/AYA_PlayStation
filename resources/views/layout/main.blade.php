@@ -48,13 +48,20 @@
 
 <body id="page-top">
     <div id="wrapper">
+@php
+    $appPengaturan = \App\Models\PengaturanWeb::getSettings();
+@endphp
         <!-- Sidebar -->
         <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
                 <div class="sidebar-brand-icon">
-                    <img src="{{ asset('Backend/img/logo/aya_logo.png') }}" style="max-height: 42px; border-radius: 8px;">
+                    @if($appPengaturan->logo && file_exists(public_path($appPengaturan->logo)))
+                        <img src="{{ asset($appPengaturan->logo) }}" style="max-height: 42px; border-radius: 8px;">
+                    @else
+                        <img src="{{ asset('Backend/img/logo/aya_logo.png') }}" style="max-height: 42px; border-radius: 8px;">
+                    @endif
                 </div>
-                <div class="sidebar-brand-text mx-3">AYA PlayStation</div>
+                <div class="sidebar-brand-text mx-3">{{ $appPengaturan->nama_rental ?? 'AYA PlayStation' }}</div>
             </a>
             <hr class="sidebar-divider my-0">
 <!-- Sidebar Navigation -->
@@ -147,10 +154,18 @@
 </li>
 
 <!-- Ulasan -->
-<li class="nav-item {{ request()->is('ui-colors.html') ? 'active' : '' }}">
+<li class="nav-item {{ request()->routeIs('ulasan.*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('ulasan.index') }}">
         <i class="fas fa-fw fa-comments"></i>
         <span>Ulasan</span>
+    </a>
+</li>
+
+<!-- Pengaturan Website & Media -->
+<li class="nav-item {{ request()->routeIs('pengaturan-web.*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('pengaturan-web.index') }}">
+        <i class="fas fa-fw fa-sliders-h"></i>
+        <span>Pengaturan Website</span>
     </a>
 </li>
 

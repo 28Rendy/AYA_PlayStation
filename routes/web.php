@@ -23,10 +23,11 @@ use App\Models\Ulasan;
 */
 
 Route::get('/', function () {
-
     $data_perental = DataPerental::count();
     $data_ulasan = Ulasan::all();
-    return view('welcome', ['data_perental' => $data_perental, 'data_ulasan' => $data_ulasan]);
+    $pengaturan = \App\Models\PengaturanWeb::getSettings();
+    $data_ruang = \App\Models\DataRuang::all();
+    return view('welcome', compact('data_perental', 'data_ulasan', 'pengaturan', 'data_ruang'));
 })->name('welcome');
 
 // Login routes
@@ -92,6 +93,8 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('kas-masuk', [DataPerentalController::class, 'kasMasuk'])->name('kasMasuk');
     Route::get('ubah-periode/{tanggal}', [DataPerentalController::class, 'ubahPeriode'])->name('ubahPeriode');
     Route::post('ubah-periode', [DataPerentalController::class, 'ubahPeriode'])->name('ubahPeriode');
+    Route::get('/pengaturan-web', 'PengaturanWebController@index')->name('pengaturan-web.index');
+    Route::post('/pengaturan-web', 'PengaturanWebController@update')->name('pengaturan-web.update');
 });
 
 Route::post('ulasan', [UlasanController::class, 'store'])->name('ulasan.store');

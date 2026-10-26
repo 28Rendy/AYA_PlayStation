@@ -73,43 +73,35 @@
 </li>
 
 <hr class="sidebar-divider">
-<div class="sidebar-heading">Fitur</div>
+<div class="sidebar-heading">Master Data</div>
 
-<!-- Data Ruang -->
-<li class="nav-item {{ request()->routeIs('DTruang.index') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('DTruang.index') }}">
-        <i class="fas fa-fw fa-building"></i>  <!-- Ikon untuk Data Ruang -->
-        <span>Data Ruang</span>
+<!-- Master -->
+<li class="nav-item {{ request()->routeIs('DTadmin.*', 'DTpelanggan.*', 'DTruang.*', 'DTps.*') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster"
+        aria-expanded="{{ request()->routeIs('DTadmin.*', 'DTpelanggan.*', 'DTruang.*', 'DTps.*') ? 'true' : 'false' }}" 
+        aria-controls="collapseMaster">
+        <i class="fas fa-fw fa-database"></i>
+        <span>Master</span>
     </a>
-</li>
-
-
-<!-- Data Ps -->
-<li class="nav-item {{ request()->routeIs('DTps.index') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('DTps.index') }}">
-        <i class="fas fa-fw fa-palette"></i>
-        <span>Data PlayStation</span>
-    </a>
-</li>
-
-<!-- Laporan -->
-<li class="nav-item {{ request()->is('pemasukan', 'pengeluaran') ? 'active' : '' }}">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm"
-        aria-expanded="{{ request()->is('pemasukan', 'pengeluaran') ? 'true' : 'false' }}" 
-        aria-controls="collapseForm">
-        <i class="fab fa-fw fa-wpforms"></i>
-        <span>Laporan</span>
-    </a>
-    <div id="collapseForm" 
-        class="collapse {{ request()->is('pemasukan', 'pengeluaran') ? 'show' : '' }}" 
-        aria-labelledby="headingForm" data-parent="#accordionSidebar">
+    <div id="collapseMaster" 
+        class="collapse {{ request()->routeIs('DTadmin.*', 'DTpelanggan.*', 'DTruang.*', 'DTps.*') ? 'show' : '' }}" 
+        aria-labelledby="headingMaster" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Laporan</h6>
-            <a class="collapse-item {{ request()->routeIs('pemasukan.*') ? 'active font-weight-bold' : '' }}" href="{{ route('pemasukan.index') }}">Pemasukan Kas</a>
-            <a class="collapse-item {{ request()->routeIs('pengeluaran.index') ? 'active font-weight-bold' : '' }}" href="{{ route('pengeluaran.index') }}">Pengeluaran Kas</a>
+            <h6 class="collapse-header">Data Master</h6>
+            <a class="collapse-item {{ request()->routeIs('DTadmin.*') ? 'active font-weight-bold' : '' }}" 
+                href="{{ route('DTadmin.index') }}">Data Admin</a>
+            <a class="collapse-item {{ request()->routeIs('DTpelanggan.*') ? 'active font-weight-bold' : '' }}" 
+                href="{{ route('DTpelanggan.index') }}">Data Pelanggan</a>
+            <a class="collapse-item {{ request()->routeIs('DTruang.*') ? 'active font-weight-bold' : '' }}" 
+                href="{{ route('DTruang.index') }}">Data Ruang</a>
+            <a class="collapse-item {{ request()->routeIs('DTps.*') ? 'active font-weight-bold' : '' }}" 
+                href="{{ route('DTps.index') }}">Data PlayStation</a>
         </div>
     </div>
 </li>
+
+<hr class="sidebar-divider">
+<div class="sidebar-heading">Transaksi & Laporan</div>
 
 <!-- Tampilan Data -->
 <li class="nav-item {{ request()->routeIs('DTperental.*', 'DTpenyewa.*') ? 'active' : '' }}">
@@ -132,26 +124,27 @@
     </div>
 </li>
 
-<!-- Master -->
-<li class="nav-item {{ request()->routeIs('DTadmin.*', 'DTpelanggan.*') ? 'active' : '' }}">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster"
-        aria-expanded="{{ request()->routeIs('DTadmin.*', 'DTpelanggan.*') ? 'true' : 'false' }}" 
-        aria-controls="collapseMaster">
-        <i class="fas fa-fw fa-database"></i>
-        <span>Master</span>
+<!-- Laporan -->
+<li class="nav-item {{ request()->is('pemasukan', 'pengeluaran') || request()->routeIs('pemasukan.*', 'pengeluaran.*') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm"
+        aria-expanded="{{ request()->is('pemasukan', 'pengeluaran') || request()->routeIs('pemasukan.*', 'pengeluaran.*') ? 'true' : 'false' }}" 
+        aria-controls="collapseForm">
+        <i class="fab fa-fw fa-wpforms"></i>
+        <span>Laporan</span>
     </a>
-    <div id="collapseMaster" 
-        class="collapse {{ request()->routeIs('DTadmin.*', 'DTpelanggan.*') ? 'show' : '' }}" 
-        aria-labelledby="headingMaster" data-parent="#accordionSidebar">
+    <div id="collapseForm" 
+        class="collapse {{ request()->is('pemasukan', 'pengeluaran') || request()->routeIs('pemasukan.*', 'pengeluaran.*') ? 'show' : '' }}" 
+        aria-labelledby="headingForm" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Data Master</h6>
-            <a class="collapse-item {{ request()->routeIs('DTadmin.*') ? 'active font-weight-bold' : '' }}" 
-                href="{{ route('DTadmin.index') }}">Data Admin</a>
-            <a class="collapse-item {{ request()->routeIs('DTpelanggan.*') ? 'active font-weight-bold' : '' }}" 
-                href="{{ route('DTpelanggan.index') }}">Data Pelanggan</a>
+            <h6 class="collapse-header">Laporan</h6>
+            <a class="collapse-item {{ request()->routeIs('pemasukan.*') ? 'active font-weight-bold' : '' }}" href="{{ route('pemasukan.index') }}">Pemasukan Kas</a>
+            <a class="collapse-item {{ request()->routeIs('pengeluaran.index') ? 'active font-weight-bold' : '' }}" href="{{ route('pengeluaran.index') }}">Pengeluaran Kas</a>
         </div>
     </div>
 </li>
+
+<hr class="sidebar-divider">
+<div class="sidebar-heading">Pengaturan & Interaksi</div>
 
 <!-- Ulasan -->
 <li class="nav-item {{ request()->routeIs('ulasan.*') ? 'active' : '' }}">

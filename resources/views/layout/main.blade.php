@@ -140,7 +140,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal"
-                    onclick="event.preventDefault(); confirmLogout();">
+                    onclick="event.preventDefault();">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
                     <span>Log Out</span>
                 </a>
@@ -184,7 +184,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="img-profile rounded-circle" src="{{ asset('Backend/img/logo/aya_logo.png') }}" style="max-width: 50px">
-                                <span class="ml-2 d-none d-lg-inline text-white small">Admin AYA PlayStation</span>
+                                <span class="ml-2 d-none d-lg-inline text-white small">{{ Auth::guard('admin')->user()->nama ?? Auth::user()->name ?? 'Admin AYA PlayStation' }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">

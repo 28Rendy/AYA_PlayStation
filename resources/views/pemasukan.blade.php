@@ -53,7 +53,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('ubahPeriode', ['id' => $kas->id]) }}">
+                    <form method="POST" action="{{ route('ubahPeriode') }}">
                         @csrf
                         <div class="form-group">
                             <label for="tanggal">Tanggal:</label>

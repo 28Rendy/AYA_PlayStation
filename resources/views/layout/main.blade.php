@@ -105,24 +105,43 @@
 </li>
 
 <!-- Tampilan Data -->
-<li class="nav-item {{ request()->routeIs('DTperental.index', 'DTadmin.index', 'DTpenyewa.index') ? 'active' : '' }}">
+<li class="nav-item {{ request()->routeIs('DTperental.*', 'DTpenyewa.*') ? 'active' : '' }}">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable"
-        aria-expanded="{{ request()->routeIs('DTperental.index', 'DTadmin.index', 'DTpenyewa.index') ? 'true' : 'false' }}" 
+        aria-expanded="{{ request()->routeIs('DTperental.*', 'DTpenyewa.*') ? 'true' : 'false' }}" 
         aria-controls="collapseTable">
         <i class="fas fa-fw fa-table"></i>
         <span>Tampilan Data</span>
     </a>
     <div id="collapseTable" 
-        class="collapse {{ request()->routeIs('DTperental.index', 'DTadmin.index', 'DTpenyewa.index') ? 'show' : '' }}" 
+        class="collapse {{ request()->routeIs('DTperental.*', 'DTpenyewa.*') ? 'show' : '' }}" 
         aria-labelledby="headingTable" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Data</h6>
-            <a class="collapse-item {{ request()->routeIs('DTperental.index') ? 'active font-weight-bold' : '' }}" 
+            <h6 class="collapse-header">Data Rental</h6>
+            <a class="collapse-item {{ request()->routeIs('DTperental.*') ? 'active font-weight-bold' : '' }}" 
                 href="{{ route('DTperental.index') }}">Data Perental</a>
-            <a class="collapse-item {{ request()->routeIs('DTpenyewa.index') ? 'active font-weight-bold' : '' }}" 
+            <a class="collapse-item {{ request()->routeIs('DTpenyewa.*') ? 'active font-weight-bold' : '' }}" 
                 href="{{ route('DTpenyewa.index') }}">Data Penyewa</a>
-            <a class="collapse-item {{ request()->routeIs('DTadmin.index') ? 'active font-weight-bold' : '' }}" 
+        </div>
+    </div>
+</li>
+
+<!-- Master -->
+<li class="nav-item {{ request()->routeIs('DTadmin.*', 'DTpelanggan.*') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster"
+        aria-expanded="{{ request()->routeIs('DTadmin.*', 'DTpelanggan.*') ? 'true' : 'false' }}" 
+        aria-controls="collapseMaster">
+        <i class="fas fa-fw fa-database"></i>
+        <span>Master</span>
+    </a>
+    <div id="collapseMaster" 
+        class="collapse {{ request()->routeIs('DTadmin.*', 'DTpelanggan.*') ? 'show' : '' }}" 
+        aria-labelledby="headingMaster" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Data Master</h6>
+            <a class="collapse-item {{ request()->routeIs('DTadmin.*') ? 'active font-weight-bold' : '' }}" 
                 href="{{ route('DTadmin.index') }}">Data Admin</a>
+            <a class="collapse-item {{ request()->routeIs('DTpelanggan.*') ? 'active font-weight-bold' : '' }}" 
+                href="{{ route('DTpelanggan.index') }}">Data Pelanggan</a>
         </div>
     </div>
 </li>

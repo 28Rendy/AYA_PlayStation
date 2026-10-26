@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::resource('/DTperental', 'DataPerentalController');
     Route::resource('/pengeluaran', 'DataPengeluaranController');
     Route::resource('/DTadmin', 'DataAdminController');
+    Route::resource('/DTpelanggan', 'DataPelangganController');
     Route::resource('/DTps', 'DataPsController');
     Route::resource('/DTpenyewa', 'DataPenyewaController');
     Route::get('ulasan', [UlasanController::class, 'index'])->name('ulasan.index');

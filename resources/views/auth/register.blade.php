@@ -286,9 +286,16 @@
 
                 <div class="form-group">
                     <label class="form-label">Kata Sandi</label>
-                    <input type="password" name="password"
-                        class="form-control @error('password') is-invalid @enderror"
-                        placeholder="Minimal 8 karakter" required>
+                    <div style="position: relative;">
+                        <input type="password" name="password" id="regPassword"
+                            class="form-control @error('password') is-invalid @enderror"
+                            placeholder="Minimal 8 karakter" required style="padding-right: 42px;">
+                        <button type="button" id="toggleRegPasswordBtn" 
+                            style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #64748b; font-size: 0.95rem; padding: 4px;"
+                            title="Tampilkan / Sembunyikan Kata Sandi">
+                            <i class="fas fa-eye" id="regEyeIcon"></i>
+                        </button>
+                    </div>
                     @error('password')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
@@ -296,7 +303,7 @@
 
                 <div class="form-group" style="margin-bottom: 14px;">
                     <label class="form-label">Konfirmasi Kata Sandi</label>
-                    <input type="password" name="password_confirmation"
+                    <input type="password" name="password_confirmation" id="regPasswordConfirm"
                         class="form-control" placeholder="Ulangi kata sandi" required>
                 </div>
 
@@ -320,6 +327,29 @@
             <a href="{{ route('welcome') }}" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
         </div>
     </div>
+
+    <script>
+        const toggleRegBtn = document.getElementById('toggleRegPasswordBtn');
+        const regPass = document.getElementById('regPassword');
+        const regEye = document.getElementById('regEyeIcon');
+
+        if (toggleRegBtn && regPass && regEye) {
+            toggleRegBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (regPass.type === 'password') {
+                    regPass.type = 'text';
+                    regEye.classList.remove('fa-eye');
+                    regEye.classList.add('fa-eye-slash');
+                    regEye.style.color = '#1e3a8a';
+                } else {
+                    regPass.type = 'password';
+                    regEye.classList.remove('fa-eye-slash');
+                    regEye.classList.add('fa-eye');
+                    regEye.style.color = '#64748b';
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

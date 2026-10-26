@@ -335,9 +335,16 @@
                             <a class="lupa-sandi" href="{{ route('password.request') }}">Lupa Sandi?</a>
                         @endif
                     </div>
-                    <input type="password" name="password" id="password"
-                        class="form-control @error('password') is-invalid @enderror"
-                        placeholder="Masukkan kata sandi" required style="margin-top: 4px;">
+                    <div style="position: relative; margin-top: 4px;">
+                        <input type="password" name="password" id="password"
+                            class="form-control @error('password') is-invalid @enderror"
+                            placeholder="Masukkan kata sandi" required style="padding-right: 42px;">
+                        <button type="button" id="togglePasswordBtn" 
+                            style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #64748b; font-size: 0.95rem; padding: 4px; display: flex; align-items: center; justify-content: center;"
+                            title="Tampilkan / Sembunyikan Kata Sandi">
+                            <i class="fas fa-eye" id="eyeIcon"></i>
+                        </button>
+                    </div>
                     @error('password')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
@@ -370,6 +377,29 @@
             <a href="{{ route('welcome') }}" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
         </div>
     </div>
+
+    <script>
+        const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        if (togglePasswordBtn && passwordInput && eyeIcon) {
+            togglePasswordBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    eyeIcon.classList.remove('fa-eye');
+                    eyeIcon.classList.add('fa-eye-slash');
+                    eyeIcon.style.color = '#1e3a8a';
+                } else {
+                    passwordInput.type = 'password';
+                    eyeIcon.classList.remove('fa-eye-slash');
+                    eyeIcon.classList.add('fa-eye');
+                    eyeIcon.style.color = '#64748b';
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

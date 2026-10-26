@@ -107,12 +107,13 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="#hero" class="active">Beranda</a></li>
-                    <li><a href="#about">Tentang Kami</a></li>
-                    <li><a href="#keunggulan">Keunggulan</a></li>
-                    <li><a href="#details">Fasilitas</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#pricing">Daftar Ruang</a></li>
+                    <li><a href="{{ route('welcome') }}" class="active">Beranda</a></li>
+                    <li><a href="{{ route('frontend.about') }}">Tentang Kami</a></li>
+                    <li><a href="{{ route('frontend.features') }}">Keunggulan</a></li>
+                    <li><a href="{{ route('frontend.facilities') }}">Fasilitas</a></li>
+                    <li><a href="{{ route('frontend.gallery') }}">Gallery</a></li>
+                    <li><a href="{{ route('frontend.rooms') }}">Daftar Ruang</a></li>
+                    <li><a href="{{ route('frontend.contact') }}">Kontak</a></li>
                     @if(Auth::guard('admin')->check())
                         <li><a href="{{ route('dashboard') }}" style="color: #2563eb; font-weight: 700;"><i class="bi bi-speedometer2"></i> Dashboard Admin</a></li>
                         <li>
@@ -126,9 +127,8 @@
                             <form id="logout-form-nav" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                         </li>
                     @else
-                        <li><a href="{{ route('login') }}">Login</a></li>
+                        <li><a href="{{ route('login') }}" class="btn-login-nav" style="border: 1px solid rgba(13,110,253,0.3); border-radius: 20px; padding: 6px 18px;">Login</a></li>
                     @endif
-                    <li><a href="#contact">Kontak</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
@@ -150,8 +150,8 @@
                         <h1>{{ $pengaturan->hero_title ?? 'Nikmati Sensasi Bermain Di AYA PlayStation' }}</h1>
                         <p>{{ $pengaturan->hero_subtitle ?? 'Lounge Gaming Modern & Rental PlayStation Terpercaya. Konsol PS4 & PS5 dengan TV 4K, Game Terbaru, Ruang VIP Ber-AC, dan Pelayanan Ramah.' }}</p>
                         <div class="d-flex">
-                            <a href="#pricing" class="btn-get-started">Pesan Ruangan</a>
-                            <a href="https://wa.me/{{ $cleanWa }}?text={{ urlencode('Halo ' . ($pengaturan->nama_rental ?? 'AYA PlayStation') . ', saya ingin bertanya seputar sewa/rental konsol & ruangan.') }}" target="_blank" class="btn-watch-video d-flex align-items-center ms-3"><i class="bi bi-whatsapp"></i><span>Chat WhatsApp</span></a>
+                            <a href="{{ route('frontend.rooms') }}" class="btn-get-started">Pesan Ruangan</a>
+                            <a href="{{ route('frontend.facilities') }}" class="btn-watch-video d-flex align-items-center ms-3"><i class="bi bi-controller"></i><span>Lihat Fasilitas</span></a>
                         </div>
                     </div>
 
@@ -188,7 +188,7 @@
                         <h2>Lounge Gaming Modern untuk Pengalaman Tanpa Batas</h2>
                         <p><strong>AYA PlayStation</strong> adalah pusat hiburan gaming dan penyewaan konsol modern yang berdedikasi memberikan pengalaman bermain terbaik bagi para gamer. Kami menyediakan konsol PlayStation 4 dan PlayStation 5 generasi terbaru, kontroler original yang terawat prima, serta katalog game terpopuler dan terupdate.</p>
                         <p>Dengan atmosfer ruangan yang bersih, sejuk, dan dilengkapi fasilitas pendukung lengkap, AYA PlayStation siap menjadi tempat mabar favorit Anda bersama sahabat dan komunitas.</p>
-                        <a href="#facilities" class="read-more"><span>Pelajari Fasilitas</span><i class="bi bi-arrow-right"></i></a>
+                        <a href="{{ route('frontend.facilities') }}" class="read-more"><span>Pelajari Fasilitas</span><i class="bi bi-arrow-right"></i></a>
                     </div>
 
                     <div class="col-xl-7">
@@ -663,11 +663,12 @@
                 <div class="col-lg-3 col-md-3 footer-links">
                     <h4>Navigasi Cepat</h4>
                     <ul>
-                        <li><a href="#hero">Beranda</a></li>
-                        <li><a href="#about">Tentang Kami</a></li>
-                        <li><a href="#facilities">Layanan & Fasilitas</a></li>
-                        <li><a href="#pricing">Tarif Sewa</a></li>
-                        <li><a href="#contact">Kontak Kami</a></li>
+                        <li><a href="{{ route('welcome') }}">Beranda</a></li>
+                        <li><a href="{{ route('frontend.about') }}">Tentang Kami</a></li>
+                        <li><a href="{{ route('frontend.features') }}">Keunggulan</a></li>
+                        <li><a href="{{ route('frontend.facilities') }}">Layanan & Fasilitas</a></li>
+                        <li><a href="{{ route('frontend.rooms') }}">Tarif Sewa</a></li>
+                        <li><a href="{{ route('frontend.contact') }}">Kontak Kami</a></li>
                     </ul>
                 </div>
 

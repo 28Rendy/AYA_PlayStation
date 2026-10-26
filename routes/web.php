@@ -22,13 +22,14 @@ use App\Models\Ulasan;
 |
 */
 
-Route::get('/', function () {
-    $data_perental = DataPerental::count();
-    $data_ulasan = Ulasan::all();
-    $pengaturan = \App\Models\PengaturanWeb::getSettings();
-    $data_ruang = \App\Models\DataRuang::all();
-    return view('welcome', compact('data_perental', 'data_ulasan', 'pengaturan', 'data_ruang'));
-})->name('welcome');
+// Frontend Multi-Page Routes
+Route::get('/', 'FrontendController@index')->name('welcome');
+Route::get('/tentang-kami', 'FrontendController@about')->name('frontend.about');
+Route::get('/keunggulan', 'FrontendController@features')->name('frontend.features');
+Route::get('/fasilitas', 'FrontendController@facilities')->name('frontend.facilities');
+Route::get('/galeri', 'FrontendController@gallery')->name('frontend.gallery');
+Route::get('/daftar-ruang', 'FrontendController@rooms')->name('frontend.rooms');
+Route::get('/kontak', 'FrontendController@contact')->name('frontend.contact');
 
 // Login routes
 // Login routes

@@ -1,6 +1,4 @@
-
 <?php
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 return [
 
@@ -17,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'admins',  // Ubah 'users' menjadi 'admins' sesuai dengan model dan tabel admin
+        'passwords' => 'users',
     ],
 
     /*
@@ -40,12 +38,17 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'admins',  // Ubah 'users' menjadi 'admins' sesuai dengan provider yang akan kita definisikan
+            'provider' => 'users',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
         ],
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'admins',  // Ubah juga jika menggunakan guard api
+            'provider' => 'users',
             'hash' => false,
         ],
     ],
@@ -68,16 +71,15 @@ return [
     */
 
     'providers' => [
-        'admins' => [
+        'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,  // Pastikan model Admin berada di App\Models\Admin
+            'model' => App\User::class,
         ],
 
-        // Jika Anda menggunakan driver database, Anda bisa menambahkan konfigurasi lain seperti ini:
-        // 'admins' => [
-        //     'driver' => 'database',
-        //     'table' => 'admin',
-        // ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
     ],
 
     /*
@@ -96,9 +98,16 @@ return [
     */
 
     'passwords' => [
+        'users' => [
+            'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
         'admins' => [
-            'provider' => 'admins',  // Ubah menjadi 'admins' sesuai dengan provider yang sudah kita definisikan
-            'table' => 'password_resets',  // Tabel reset password yang sesuai
+            'provider' => 'admins',
+            'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],

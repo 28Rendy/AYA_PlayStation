@@ -100,23 +100,33 @@
                 <ul>
                     <li><a href="#hero" class="active">Beranda</a></li>
                     <li><a href="#about">Tentang Kami</a></li>
-                    <li><a href="#features">Keunggulan</a></li>
-                    <li><a href="#facilities">Fasilitas</a></li>
+                    <li><a href="#keunggulan">Keunggulan</a></li>
+                    <li><a href="#details">Fasilitas</a></li>
                     <li><a href="#gallery">Gallery</a></li>
                     <li><a href="#pricing">Daftar Ruang</a></li>
-                    <li><a href="{{ route('login') }}" id="loginLink">Login</a></li>
+                    <li><a href="#" id="loginLink">Login</a></li>
                     <li><a href="#contact">Kontak</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
 
-            <!-- Modal HTML -->
-            <div id="adminCheckModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
-                <div style="background-color: white; padding: 25px; border-radius: 12px; text-align: center; width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-                    <h5 class="font-weight-bold mb-2">Portal Akses</h5>
-                    <p class="text-muted small mb-4">Apakah Anda ingin masuk ke panel administrator?</p>
-                    <button id="yesAdmin" style="margin-right: 8px; padding: 8px 18px; font-size: 0.9rem;">Ya, Saya Admin</button>
-                    <button id="noAdmin" style="padding: 8px 18px; font-size: 0.9rem; background: #6c757d;">Bukan</button>
+            <!-- Modal Login Portal -->
+            <div id="adminCheckModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
+                <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); padding: 35px 30px; border-radius: 20px; text-align: center; width: 360px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #e94560, #0f3460); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-controller" style="font-size: 2rem; color: white;"></i>
+                    </div>
+                    <h5 style="font-weight: 700; color: white; margin-bottom: 8px;">Portal Akses AYA PlayStation</h5>
+                    <p style="color: rgba(255,255,255,0.6); font-size: 0.88rem; margin-bottom: 24px;">Pilih portal yang sesuai dengan peran Anda</p>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <button id="yesAdmin" style="flex: 1; padding: 10px 16px; font-size: 0.88rem; background: linear-gradient(135deg, #e94560, #c0392b); border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                            <i class="bi bi-shield-lock-fill"></i><br><span style="font-size:0.78rem;">Admin / Sistem</span>
+                        </button>
+                        <button id="noAdmin" style="flex: 1; padding: 10px 16px; font-size: 0.88rem; background: linear-gradient(135deg, #0984e3, #0652DD); border: none; border-radius: 10px; color: white; cursor: pointer; font-weight: 600; transition: all 0.3s;">
+                            <i class="bi bi-person-fill"></i><br><span style="font-size:0.78rem;">Pelanggan</span>
+                        </button>
+                    </div>
+                    <p style="margin-top: 16px; color: rgba(255,255,255,0.4); font-size: 0.78rem;">Klik di luar kotak ini untuk menutup</p>
                 </div>
             </div>
 
@@ -224,6 +234,54 @@
             </div>
 
         </section><!-- /About Section -->
+
+        <!-- Keunggulan Section (separate anchor) -->
+        <section id="keunggulan" class="features section light-background">
+
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Keunggulan Kami</h2>
+                <div><span>Mengapa Memilih</span> <span class="description-title">AYA PlayStation?</span></div>
+            </div>
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+                <div class="row gy-4">
+
+                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="text-center p-4 rounded-4 bg-white shadow-sm h-100" style="border-top: 4px solid #0d6efd; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform=''">
+                            <i class="bi bi-controller text-primary" style="font-size: 3rem;"></i>
+                            <h5 class="mt-3 fw-bold">Konsol & Stik Original</h5>
+                            <p class="text-muted small">Unit PS4 & PS5 bergaransi dengan DualSense responsif, minim delay, dan bebas masalah disconnect.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="text-center p-4 rounded-4 bg-white shadow-sm h-100" style="border-top: 4px solid #0d6efd; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform=''">
+                            <i class="bi bi-tv text-primary" style="font-size: 3rem;"></i>
+                            <h5 class="mt-3 fw-bold">Smart TV 4K Jernih</h5>
+                            <p class="text-muted small">Layar HD dengan refresh rate tinggi dan warna hidup — setiap detail game terlihat sempurna.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="text-center p-4 rounded-4 bg-white shadow-sm h-100" style="border-top: 4px solid #0d6efd; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform=''">
+                            <i class="bi bi-snow text-primary" style="font-size: 3rem;"></i>
+                            <h5 class="mt-3 fw-bold">Ruangan Dingin & Nyaman</h5>
+                            <p class="text-muted small">AC penuh, sofa empuk, bebas asap — nikmati gaming maraton tanpa gangguan selama berjam-jam.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="text-center p-4 rounded-4 bg-white shadow-sm h-100" style="border-top: 4px solid #0d6efd; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform=''">
+                            <i class="bi bi-box-seam text-primary" style="font-size: 3rem;"></i>
+                            <h5 class="mt-3 fw-bold">Rental Unit Rumahan</h5>
+                            <p class="text-muted small">Sewa konsol harian — lengkap dengan hardcase pelindung, kabel, dan 2 stik wireless.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section><!-- /Keunggulan Section -->
 
         <!-- Stats Section -->
         <section id="stats" class="stats section light-background">
@@ -696,11 +754,13 @@
         });
 
         yesAdmin.addEventListener('click', function() {
+            // Admin → ke halaman login dengan query role=admin
             window.location.href = "{{ route('login') }}?role=admin";
         });
 
         noAdmin.addEventListener('click', function() {
-            modal.style.display = 'none';
+            // Pelanggan → langsung ke halaman login/register pelanggan
+            window.location.href = "{{ route('login') }}";
         });
 
         window.addEventListener('click', function(event) {

@@ -1,0 +1,98 @@
+<?php
+
+use App\Http\Controllers\DataAdminController;
+use App\Http\Controllers\DataPemasukanController;
+use App\Http\Controllers\DataPengeluaranController;
+use App\Http\Controllers\DataPerentalController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DataRuangController;
+use App\Http\Controllers\UlasanController;
+use App\Models\DataPerental;
+use App\Models\Ulasan;
+
+/*
+|---------------------------------------------------------------------------
+| Web Routes
+|---------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+
+    $data_perental = DataPerental::count();
+    $data_ulasan = Ulasan::all();
+    return view('welcome', ['data_perental' => $data_perental, 'data_ulasan' => $data_ulasan]);
+})->name('welcome');
+
+// Login routes
+// Login routes
+// Route::get('/login2', [LoginController::class, 'index'])->name('login');
+
+// Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
+// Route::get('/register', [LoginController::class, 'register'])->name('register');
+// Route::post('/register-proses', [LoginController::class, 'register_proses'])->name('register-proses');
+// Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+// // Admin routes with authentication middleware
+// Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function () {
+
+
+//     Route::get('Dadmin', function () {
+//         return view('Dadmin');
+//     });
+//     Route::get('/dashboard', [LoginController::class, 'dashboard'])->name('dashboard');
+
+//     Route::get('DTruang', function () {
+//         return view('DTruang');
+//     });
+
+//     Route::get('pemasukan', function () {
+//         return view('pemasukan');
+//     });
+
+//     Route::get('pengeluaran', function () {
+//         return view('pengeluaran');
+//     });
+
+//     Route::get('DTperental', function () {
+//         return view('DTperental');
+//     });
+
+//     Route::get('DTadmin', function () {
+//         return view('DTadmin');
+//     });
+// });
+
+
+Auth::routes();
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+
+// Cukup gunakan Route::resource untuk DTruang
+Route::resource('/DTruang', 'DataRuangController');
+Route::resource('/pemasukan', 'DataPemasukanController');
+Route::resource('/DTperental', 'DataPerentalController');
+Route::resource('/pengeluaran', 'DataPengeluaranController');
+Route::resource('/DTadmin', 'DataAdminController');
+Route::resource('/DTps', 'DataPsController');
+Route::resource('/DTpenyewa', 'DataPenyewaController');
+Route::post('ulasan', [UlasanController::class, 'store'])->name('ulasan.store');
+Route::get('ulasan', [UlasanController::class, 'index'])->name('ulasan.index');
+Route::delete('ulasan/{nama}', [UlasanController::class, 'destroy'])->name('ulasan.destroy');
+// Route::get('DTruang/create', [DataRuangController::class, 'create'])->name('DTruang.create');
+// Menambahkan route resource untuk DataPerentalController
+// Route::resource('data-perental', DataPerentalController::class);
+
+// Menambahkan route tambahan untuk kasMasuk dan ubahPeriode
+Route::get('kas-masuk', [DataPerentalController::class, 'kasMasuk'])->name('kasMasuk');
+Route::get('ubah-periode/{tanggal}', [DataPerentalController::class, 'ubahPeriode'])->name('ubahPeriode');
+Route::get('pemasukan', [DataPerentalController::class, 'kasMasuk']);
+Route::get('/ubah-periode/{tanggal}', [DataPerentalController::class, 'ubahPeriode']);
+
+Route::post('ubah-periode', [DataPerentalController::class, 'ubahPeriode'])->name('ubahPeriode');
+Route::post('/ubahPeriode', [DataPerentalController::class, 'ubahPeriode'])->name('ubahPeriode');

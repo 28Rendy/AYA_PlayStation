@@ -71,29 +71,27 @@ Route::get('/', function () {
 
 
 Auth::routes();
-Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-Route::get('/pelanggan/dashboard', 'PelangganController@index')->name('pelanggan.dashboard');
 
-// Cukup gunakan Route::resource untuk DTruang
-Route::resource('/DTruang', 'DataRuangController');
-Route::resource('/pemasukan', 'DataPemasukanController');
-Route::resource('/DTperental', 'DataPerentalController');
-Route::resource('/pengeluaran', 'DataPengeluaranController');
-Route::resource('/DTadmin', 'DataAdminController');
-Route::resource('/DTps', 'DataPsController');
-Route::resource('/DTpenyewa', 'DataPenyewaController');
+// Portal Pelanggan
+Route::group(['middleware' => 'auth:web'], function () {
+    Route::get('/pelanggan/dashboard', 'PelangganController@index')->name('pelanggan.dashboard');
+    Route::post('/pelanggan/pesan-ruang', 'PelangganController@pesanRuang')->name('pelanggan.pesanRuang');
+});
+Route::group(['middleware' => 'auth:admin'], function () {
+    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+    Route::resource('/DTruang', 'DataRuangController');
+    Route::resource('/pemasukan', 'DataPemasukanController');
+    Route::resource('/DTperental', 'DataPerentalController');
+    Route::resource('/pengeluaran', 'DataPengeluaranController');
+    Route::resource('/DTadmin', 'DataAdminController');
+    Route::resource('/DTps', 'DataPsController');
+    Route::resource('/DTpenyewa', 'DataPenyewaController');
+    Route::get('ulasan', [UlasanController::class, 'index'])->name('ulasan.index');
+    Route::delete('ulasan/{nama}', [UlasanController::class, 'destroy'])->name('ulasan.destroy');
+    Route::get('kas-masuk', [DataPerentalController::class, 'kasMasuk'])->name('kasMasuk');
+    Route::get('ubah-periode/{tanggal}', [DataPerentalController::class, 'ubahPeriode'])->name('ubahPeriode');
+    Route::post('ubah-periode', [DataPerentalController::class, 'ubahPeriode'])->name('ubahPeriode');
+});
+
 Route::post('ulasan', [UlasanController::class, 'store'])->name('ulasan.store');
-Route::get('ulasan', [UlasanController::class, 'index'])->name('ulasan.index');
-Route::delete('ulasan/{nama}', [UlasanController::class, 'destroy'])->name('ulasan.destroy');
-// Route::get('DTruang/create', [DataRuangController::class, 'create'])->name('DTruang.create');
-// Menambahkan route resource untuk DataPerentalController
-// Route::resource('data-perental', DataPerentalController::class);
-
-// Menambahkan route tambahan untuk kasMasuk dan ubahPeriode
-Route::get('kas-masuk', [DataPerentalController::class, 'kasMasuk'])->name('kasMasuk');
-Route::get('ubah-periode/{tanggal}', [DataPerentalController::class, 'ubahPeriode'])->name('ubahPeriode');
-Route::get('pemasukan', [DataPerentalController::class, 'kasMasuk']);
-Route::get('/ubah-periode/{tanggal}', [DataPerentalController::class, 'ubahPeriode']);
-
-Route::post('ubah-periode', [DataPerentalController::class, 'ubahPeriode'])->name('ubahPeriode');
 Route::post('/ubahPeriode', [DataPerentalController::class, 'ubahPeriode'])->name('ubahPeriode');

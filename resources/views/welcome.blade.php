@@ -104,7 +104,21 @@
                     <li><a href="#details">Fasilitas</a></li>
                     <li><a href="#gallery">Gallery</a></li>
                     <li><a href="#pricing">Daftar Ruang</a></li>
-                    <li><a href="{{ route('login') }}">Login</a></li>
+                    @if(Auth::guard('admin')->check())
+                        <li><a href="{{ route('dashboard') }}" style="color: #2563eb; font-weight: 700;"><i class="bi bi-speedometer2"></i> Dashboard Admin</a></li>
+                        <li>
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form-nav').submit();" style="color: #dc2626;">Keluar</a>
+                            <form id="logout-form-nav" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+                        </li>
+                    @elseif(Auth::guard('web')->check())
+                        <li><a href="{{ route('pelanggan.dashboard') }}" style="color: #2563eb; font-weight: 700;"><i class="bi bi-person-circle"></i> Portal Saya ({{ Auth::user()->name }})</a></li>
+                        <li>
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form-nav').submit();" style="color: #dc2626;">Keluar</a>
+                            <form id="logout-form-nav" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+                        </li>
+                    @else
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                    @endif
                     <li><a href="#contact">Kontak</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
